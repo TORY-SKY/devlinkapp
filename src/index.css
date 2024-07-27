@@ -22,7 +22,7 @@
 }
 body{
   /* background-color: var(--almost-white-color); */
-  margin: 0 clamp(0.5rem, 3vw, 1rem);
+  /* margin: 0 clamp(0.5rem, 3vw, 1rem); */
 }
 .navigation-bar-container nav{
   display: flex;
@@ -104,7 +104,7 @@ cursor: pointer;
   flex-direction: column;
   margin: 64px 0;
 }
-.login-form .login-text, .login-text{
+.login-form .login-text{
   font-size: 24px;
   font-family: "Instrument Sans", sans-serif;
   font-weight: 700;
@@ -187,10 +187,47 @@ cursor: pointer;
 
 
 /* add link page styling */
+*{
+  /* outline: 1px solid red; */
+}
+.home-page{
+  background-color: var(--almost-white-color);
+  padding: 16px 16px;
+
+
+}
+.add-link-container{
+  margin-top: 16px;
+}
+.right-side{
+  /* margin: 16px 16px; */
+  background-color: var(--white-color);
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  padding: 12px;
+}
+.hr{
+  border: 12px solid green;
+}
+.add-edit-remove-link{
+  text-align: center;
+}
 .add-link-btn-container{
   background-color: var(--almost-white-color);
   border-radius: 12px;
-
+  margin-top: 24px;
+  text-align: center;
+  padding: 8px;
+}
+.right-side .right-side-top{
+  margin-bottom: 40px;
+}
+.header-text{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
 }
 .add-link-btn{
   width: 100%;
@@ -200,4 +237,31 @@ cursor: pointer;
   border-radius: 8px;
   background-color: transparent;
   font-weight: 600;
+}
+.add-link-btn:hover{
+  background-color: var(--light-purple-color);
+
+}
+.button-enabled{
+  background-color: var(--purple-color);
+}
+.button-disabled{
+  background-color: var(--fade-lightpurple-color);
+
+}
+.save-link-btn{
+  padding: 11px 27px 11px 27px;
+  color: var(--white-color);
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 16px;
+  margin: 16px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: none;
+  outline: none;
 }

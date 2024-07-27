@@ -1,9 +1,12 @@
 import React from "react";
+import Navbar from "./Navbar";
+import Addlink from "./Addlink";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to the home page</h1>
+    <div className="home-page">
+      <Navbar />
+      <Addlink />
     </div>
   );
 };
