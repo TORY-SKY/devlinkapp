@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+:root {
+  --purple-color: #633CFF;
+  --fade-lightpurple-color: #BEADFF;
+  --light-purple-color: #EFEBFF;
+  --dark-color: #333333;
+  --gray-color: #737373;
+  --lightgrey-color: #D9D9D9;
+  --almost-white-color: #FAFAFA;
+  --white-color: #FFFFFF;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 16px;
+  /* outline: 1px solid red; */
+
+
+}
+body{
+  /* background-color: var(--almost-white-color); */
+  margin: 0 clamp(0.5rem, 3vw, 1rem);
+}
+.navigation-bar-container nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white-color);
+  padding: 3px clamp(0.5rem, 3vw, 1rem);
+  gap: clamp(0.5rem, 3vw, 1rem);
+
+  color: var(--gray-color);
+  border-radius: 12px;
+}
+.app-logo-container{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.links-container{
+  gap: 0;
+  padding: 0;
+  margin: 0;
+}
+.links-container .links{
+  padding: 11px 20px 11px 20px;
+}
+ .preview-btn{
+padding: 11px 20px 11px 20px;
+gap: 1px;
+border-radius: 8px;
+opacity: 0px;
+display: flex;
+cursor: pointer;
+
+  /* margin-right: clamp(0.5rem, 3vw, 14rem); */
+}
+.preview-btn:hover{
+  background-color: var(--light-purple-color);
+  font-weight: 400;
+}
+
+.links-container .links:hover{
+  color: var(--purple-color);
+  background-color: var(--light-purple-color);
+  font-weight: 400;
+  border-radius: 8px;
+  
+}
+.preview-btn{
+  border: 1px solid var(--purple-color);
+  background-color: var(--white-color);
+
+}
+.appName{
+  /* display: flex !important; */
+  font-size: 2rem;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.logo-text{
+  display: none;
+}
+*{
+  /* outline: 1px solid red; */
+}
+
+/* LOGIN FORM PHONE SCREEN STYLING */
+.login-form-container{ 
+  margin: auto 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-form-container .headerr{
+  margin-top: 30px;
+}
+.login-form{
+  display: flex;
+  flex-direction: column;
+  margin: 64px 0;
+}
+.login-form .login-text, .login-text{
+  font-size: 24px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 700;
+  line-height: 36px;
+  margin-bottom: 8px;
+  
+}
+.login-form .body-m, .body-m{
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Instrument Sans", sans-serif;
+  line-height: 24px;
+  color: var(--gray-color);
+}
+.login-form .body-s{
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Instrument Sans", sans-serif;
+  line-height: 18px;
+  color: var(--gray-color);
+  margin-bottom: 20px;
+}
+.form-input-container{
+  margin-top: 40px;
+}
+
+.login-form label{
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  color: var(--dark-color);
+}
+
+
+.form-input-container .input{
+  border: 1px solid var(--lightgrey-color);
+  border-radius: 8px;
+  padding: 12px 16px 12px 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+.form-input-container .input input{
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--dark-color);
+  line-height: 24px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+
+}
+.form-input-container .login-btn{
+  width: 100%;
+  border-radius: 8px;
+  padding: 11px 27px 11px 27px;
+  color: var(--white-color);
+  background-color: var(--purple-color);
+  border: none;
+  font-size: 16px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 600;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+/* login button */
+.link-to-create-account{
+  text-align: center;
+  font-family: "Instrument Sans", sans-serif;
+}
+.link-to-create-account a{
+  text-decoration: none;
+}
+
+
+
+/* add link page styling */
+.add-link-btn-container{
+  background-color: var(--almost-white-color);
+  border-radius: 12px;
+
+}
+.add-link-btn{
+  width: 100%;
+  padding: 11px 27px 11px 27px;
+  color: var(--purple-color);
+  border: 1px solid var(--purple-color);
+  border-radius: 8px;
+  background-color: transparent;
+  font-weight: 600;
+}
