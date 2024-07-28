@@ -13,7 +13,9 @@ const Addlink = () => {
   return (
     <>
       <div className="add-link-container">
-        {/* <div className="left-side"><img src={Phone} alt="Phone" /></div> */}
+        <div className="left-side">
+          <img src={Phone} alt="Phone" />
+        </div>
         <div className="right-side">
           <div className="right-side-top">
             <h1 className="header-text">Customize your links</h1>
@@ -23,6 +25,10 @@ const Addlink = () => {
             </p>
           </div>
           <button className="add-link-btn">+ Add new link</button>
+         <div className="adding-links-struc">
+          <div className="add-links-structure">
+            goes here
+          </div>
           <div className="add-link-btn-container">
             <div className="pretext-container">
               <img src={linkIcon} alt="link-icon" />
@@ -34,18 +40,19 @@ const Addlink = () => {
               </p>
             </div>
           </div>
-        </div>
-        <div className="save-button-container">
-          <hr />
-          <button
-            className={`save-link-btn ${
-              isDisbled ? "button-enabled" : "button-disabled"
-            }`}
-            onClick={checkBtnState}
-            disabled={isDisbled}
-          >
-            Save
-          </button>
+         </div>
+          <div className="save-button-container" >
+            <hr />
+            <button
+              className={`save-link-btn ${
+                isDisbled ? "button-enabled" : "button-disabled"
+              }`}
+              onClick={checkBtnState}
+              disabled={isDisbled}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </>
