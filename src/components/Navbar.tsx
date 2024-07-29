@@ -26,7 +26,7 @@ const Navbar = () => {
             <p className="appName logo-text">devlinks</p>
           </div>
           <nav className="links-container">
-            <Link to="/linkspage" className="links">
+            <Link to="/" className="links">
               <svg
                 width="21"
                 height="20"

@@ -46,6 +46,8 @@ body{
   margin: 0;
 }
 .links-container .links{
+  display: flex;
+  gap: 8px;
   padding: 11px 20px 11px 20px;
 }
  .preview-btn{
@@ -270,6 +272,9 @@ cursor: pointer;
   height: auto;
 }
 @media (min-width: 769px){
+  .logo-text{
+    display: flex;
+  }
   .right-side{
     padding: 40px;
   }
