@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-const Signup = () => {
+const Signup: React.FC = () => {
+  // setting up sign-up authentication
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  // handling signup
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault;
+    const auth = getAuth();
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User signed up:", userCredentials.user);
+      setError(null);
+    } catch (error: any) {
+      setError(error.message);
+      console.error("Signup error:", error);
+      alert(error);
+    }
+  };
   return (
     <div className="login-form-container">
       <div className="app-logo-container headerr">
@@ -22,7 +47,7 @@ const Signup = () => {
         <p className="appName">devlinks</p>
       </div>
       {/* /\login form */}
-      <form action="" className="login-form">
+      <form action="" className="login-form" onClick={handleSignup}>
         <div className="form-cont">
           <h1 className="login-text">Create account</h1>
           <p className="body-m">Let’s get you started sharing your links!</p>
@@ -44,7 +69,12 @@ const Signup = () => {
                 />
               </svg>
 
-              <input type="email" placeholder="e.g. alex@email.com" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="e.g. alex@email.com"
+              />
             </div>
           </div>
           <div className="input-field">
@@ -63,7 +93,12 @@ const Signup = () => {
                 />
               </svg>
 
-              <input type="password" placeholder="At least .8 characters" />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="At least .8 characters"
+              />
             </div>
           </div>
           <div className="input-field">

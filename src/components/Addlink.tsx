@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+
 import Phone from "../assets/images/Subtract.png";
 import linkIcon from "../assets/images/addlinkicon.jpg";
 import { useState } from "react";
