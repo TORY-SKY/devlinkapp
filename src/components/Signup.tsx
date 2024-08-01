@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { auth } from "../common/firebase";
 const Signup: React.FC = () => {
   // setting up sign-up authentication
   const [email, setEmail] = useState("");
@@ -12,7 +12,10 @@ const Signup: React.FC = () => {
   // handling signup
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault;
-    const auth = getAuth();
+    if (password != confirmPassword) {
+      setError("bro, your password doesn't match");
+      return;
+    }
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
@@ -47,7 +50,7 @@ const Signup: React.FC = () => {
         <p className="appName">devlinks</p>
       </div>
       {/* /\login form */}
-      <form action="" className="login-form" onClick={handleSignup}>
+      <form action="" className="login-form" onSubmit={handleSignup}>
         <div className="form-cont">
           <h1 className="login-text">Create account</h1>
           <p className="body-m">Let’s get you started sharing your links!</p>
@@ -123,7 +126,9 @@ const Signup: React.FC = () => {
               Password must contain at least 8 characters
             </p>
           </div>
-          <button className="login-btn">Create new account</button>
+          <button className="login-btn" type="submit">
+            Create new account
+          </button>
         </div>
         <div className="link-to-create-account">
           <p>Already have an account? </p> <Link to="/login">Login</Link>
