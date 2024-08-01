@@ -323,4 +323,46 @@ cursor: pointer;
   .header-text{
     margin-bottom: 24px;
   }
+
+
+/* LOGIN FORM */
+/* header */
+.app-logo-container{
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+}
+.LOGIN-CONTAINER{
+  background-color: var(--almost-white-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .login-form-h{
+} */
+.the-login-form{
+  background-color: var(--white-color);
+  padding: 20px;
+  border-radius: 8px;
+
+}
+  /* SIGN UP PAGE RESPONSIVENESS */
+  .SIGN-UP{
+    background-color: var(--almost-white-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-form-container{
+    /* margin-left: 470px;
+    margin-right: 470px; */
+    margin: auto 450px;
+  }
+  .sign-up-form-container{
+    background-color: var(--white-color);
+    padding: 20px;
+    border-radius: 8px;
+
+
+  }
 }
