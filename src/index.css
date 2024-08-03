@@ -356,7 +356,8 @@ cursor: pointer;
   .login-form-container{
     /* margin-left: 470px;
     margin-right: 470px; */
-    margin: auto 450px;
+    /* margin: auto 450px; */
+    outline: 1px solid red;
   }
   .sign-up-form-container{
     background-color: var(--white-color);
