@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../common/firebase";
-import firebase from "firebase/compat/app";
 
 const Signup: React.FC = () => {
   // setting up sign-up authentication
@@ -81,6 +80,8 @@ const Signup: React.FC = () => {
 
                 <input
                   type="email"
+                  id="email"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="e.g. alex@email.com"
@@ -88,7 +89,7 @@ const Signup: React.FC = () => {
               </div>
             </div>
             <div className="input-field">
-              <label htmlFor="Email">Create Password</label>
+              <label htmlFor="password">Create Password</label>
               <div className="input">
                 <svg
                   width="16"
@@ -105,6 +106,8 @@ const Signup: React.FC = () => {
 
                 <input
                   type="password"
+                  id="password"
+                  name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least .8 characters"
@@ -112,7 +115,7 @@ const Signup: React.FC = () => {
               </div>
             </div>
             <div className="input-field">
-              <label htmlFor="Email">Confirm Password</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <div className="input">
                 <svg
                   width="16"
@@ -129,13 +132,15 @@ const Signup: React.FC = () => {
 
                 <input
                   type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="At least .8 characters"
                 />
               </div>
-              <p className="body-s">
-                Password must contain at least 8 characters
+              <p className="body-s" style={{ color: "red" }}>
+                {error ? error : "Password must contain at least 8 characters"}
               </p>
             </div>
             <button className="login-btn" type="submit">
