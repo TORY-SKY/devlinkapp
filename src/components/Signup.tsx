@@ -9,14 +9,46 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>("");
+  const [passwordError, setPasswordError] = useState<string | null>("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState<
+    string | null
+  >("");
+  // email input validation
+  const validateEmail = (email: string): boolean => {
+    const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegEx.test(email);
+  };
 
+  // password input validation
+
+  const validatePassword = (password: string): boolean => {
+    const passwordRegEx =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    return passwordRegEx.test(password);
+  };
   // handling signup
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault;
-    if (password != confirmPassword) {
-      setError("bro, your password doesn't match");
+
+    // email input validation
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email address");
       return;
     }
+    // validate password
+    if (!validatePassword(password)) {
+      setPasswordError(
+        "Password must contain at least 8 characters, including numbers and special characters"
+      );
+      return;
+    }
+    // confirm password
+    if (password != confirmPassword) {
+      setConfirmPasswordError("bro, your password doesn't match");
+      return;
+    }
+
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
@@ -64,7 +96,7 @@ const Signup: React.FC = () => {
           <div className="form-input-container">
             <div className="input-field">
               <label htmlFor="Email">Email address</label>
-              <div className="input">
+              <div className="input email-input">
                 <svg
                   width="16"
                   height="16"
@@ -77,7 +109,6 @@ const Signup: React.FC = () => {
                     fill="#737373"
                   />
                 </svg>
-
                 <input
                   type="email"
                   id="email"
@@ -86,6 +117,8 @@ const Signup: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="e.g. alex@email.com"
                 />
+                {emailError && <p className="error">{emailError}</p>}{" "}
+                {/* Display email error */}
               </div>
             </div>
             <div className="input-field">
@@ -116,7 +149,7 @@ const Signup: React.FC = () => {
             </div>
             <div className="input-field">
               <label htmlFor="confirmPassword">Confirm Password</label>
-              <div className="input">
+              <div className="input ">
                 <svg
                   width="16"
                   height="16"
@@ -129,7 +162,6 @@ const Signup: React.FC = () => {
                     fill="#737373"
                   />
                 </svg>
-
                 <input
                   type="password"
                   id="confirmPassword"
@@ -138,9 +170,13 @@ const Signup: React.FC = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="At least .8 characters"
                 />
+                {confirmPasswordError && (
+                  <p className="error">{confirmPasswordError}</p>
+                )}{" "}
+                {/* Display confirm password error */}
               </div>
               <p className="body-s" style={{ color: "red" }}>
-                {error ? error : "Password must contain at least 8 characters"}
+                {emailError}
               </p>
             </div>
             <button className="login-btn" type="submit">
