@@ -1,8 +1,8 @@
-
 import Phone from "../assets/images/Subtract.png";
 import linkIcon from "../assets/images/addlinkicon.jpg";
 import { useState } from "react";
 import "../index.css";
+import Navbar from "./Navbar";
 
 const Addlink = () => {
   // button enabled/disabled state
@@ -12,10 +12,9 @@ const Addlink = () => {
   };
   return (
     <>
+      <Navbar />
       <div className="add-link-container">
-        <div className="left-side">
-          <img src={Phone} alt="Phone" />
-        </div>
+        <div className="left-side">{/* <img src={Phone} alt="Phone" /> */}</div>
         <div className="right-side">
           <div className="right-side-top">
             <h1 className="header-text">Customize your links</h1>

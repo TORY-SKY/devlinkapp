@@ -2,67 +2,98 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../common/firebase";
+import { FormErrors, UserInput } from "./Interface";
 
 const Signup: React.FC = () => {
   // setting up sign-up authentication
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [emailError, setEmailError] = useState<string | null>("");
-  const [passwordError, setPasswordError] = useState<string | null>("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState<
-    string | null
-  >("");
-  // email input validation
-  const validateEmail = (email: string): boolean => {
-    const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegEx.test(email);
+  const [userInput, setUserInput] = useState<UserInput>({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    network: "",
+    general: "",
+  });
+
+  const validateInput = () => {
+    const newErrors: FormErrors = {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      network: "",
+      general: "",
+    };
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInput.email)) {
+      newErrors.email = "Invalid email format.";
+    }
+
+    // Password validation
+    if (userInput.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long.";
+    }
+
+    // Confirm password validation
+    if (userInput.password !== userInput.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    // Check for empty fields
+    if (!userInput.email || !userInput.password || !userInput.confirmPassword) {
+      newErrors.general = "All fields are required.";
+    }
+
+    setErrors(newErrors);
+
+    // Return true if no errors
+    return Object.values(newErrors).every((error) => error === "");
   };
 
-  // password input validation
+  // handling submit
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const validatePassword = (password: string): boolean => {
-    const passwordRegEx =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-    return passwordRegEx.test(password);
-  };
-  // handling signup
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault;
-
-    // email input validation
-    if (!validateEmail(email)) {
-      setEmailError("Invalid email address");
-      return;
-    }
-    // validate password
-    if (!validatePassword(password)) {
-      setPasswordError(
-        "Password must contain at least 8 characters, including numbers and special characters"
-      );
-      return;
-    }
-    // confirm password
-    if (password != confirmPassword) {
-      setConfirmPasswordError("bro, your password doesn't match");
+    if (!validateInput()) {
       return;
     }
 
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
-        email,
-        password
+        userInput.email,
+        userInput.password
       );
-      console.log("User signed up:", userCredentials.user);
-      setError(null);
     } catch (error: any) {
-      setError(error.message);
-      console.error("Signup error:", error);
-      // alert(error);
+      if (error.code === "auth/email-already-in-use") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Email is already in use.",
+        }));
+      } else if (error.code === "auth/weak-password") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: "Password is too weak.",
+        }));
+      }
+      else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          network: 'Network error. Please try again later.',
+        }));
+      }
     }
+    }
+    
   };
+  
+
+// handling input changes
+
   return (
     <div className="SIGN-UP">
       <div className="login-form-container">
@@ -117,8 +148,9 @@ const Signup: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="e.g. alex@email.com"
                 />
-                {emailError && <p className="error">{emailError}</p>}{" "}
-                {/* Display email error */}
+                <p className="input-error-message" style={{ color: "red" }}>
+                  {"Please check again"}
+                </p>
               </div>
             </div>
             <div className="input-field">
@@ -145,6 +177,9 @@ const Signup: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least .8 characters"
                 />
+                <p className="input-error-message" style={{ color: "red" }}>
+                  {"Please check again"}
+                </p>
               </div>
             </div>
             <div className="input-field">
@@ -175,8 +210,8 @@ const Signup: React.FC = () => {
                 )}{" "}
                 {/* Display confirm password error */}
               </div>
-              <p className="body-s" style={{ color: "red" }}>
-                {emailError}
+              <p className={`body-s ${"error"}`}>
+                {emailError}Password must contain at least 8 characters
               </p>
             </div>
             <button className="login-btn" type="submit">
