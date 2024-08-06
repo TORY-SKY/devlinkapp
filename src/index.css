@@ -140,13 +140,15 @@ cursor: pointer;
   font-weight: 400;
   color: var(--dark-color);
 }
-
+*{
+  /* outline: 1px solid red; */
+}
 
 .form-input-container .input{
   position: relative;
   border: 1px solid var(--lightgrey-color);
   border-radius: 8px;
-  padding: 12px 16px 12px 16px;
+  padding: 12px 8px 12px 16px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -157,11 +159,16 @@ cursor: pointer;
 /* SVGs for the input fields */
 .form-input-container .input svg{
   margin-right: clamp(12px, 1vw, 12.5px);
-  
 }
-*{
+
+/* when input field is focused */
+.focused{
+  border: 1px solid var(--purple-color) !important;
+  box-shadow: 0 0 15px #633cff95;
 
 }
+
+
 .form-input-container .input input{
 
   width: 60%;
@@ -173,12 +180,14 @@ cursor: pointer;
   border: none;
   outline: none;
   background-color: transparent;
+  margin-right: 4px;
 }
 .input-error-message{
   font-size: clamp(12px, 1vw, 12px);
   color: red;
   font-weight: 400;
 }
+
 .form-input-container .login-btn{
   width: 100%;
   border-radius: 8px;
@@ -204,9 +213,7 @@ cursor: pointer;
 
 
 /* add link page styling */
-*{
-  /* outline: 1px solid red; */
-}
+
 .home-page{
   background-color: var(--almost-white-color);
   padding: 16px 16px;

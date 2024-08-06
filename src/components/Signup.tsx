@@ -5,6 +5,16 @@ import { auth } from "../common/firebase";
 import { FormErrors, UserInput } from "./Interface";
 
 const Signup: React.FC = () => {
+  // input focused state
+  const [isfocused, setFocused] = useState(false);
+  const handleInputFocus = () => {
+    setFocused(!isfocused);
+  };
+  const handleInputBlur = () => {
+    setFocused(!isfocused);
+  };
+  // input focused state ^^^
+
   // setting up sign-up authentication
   const [userInput, setUserInput] = useState<UserInput>({
     email: "",
@@ -35,7 +45,7 @@ const Signup: React.FC = () => {
 
     // Password validation
     if (userInput.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long.";
+      newErrors.password = "Please check again";
     }
 
     // Confirm password validation
@@ -79,20 +89,20 @@ const Signup: React.FC = () => {
           ...prevErrors,
           password: "Password is too weak.",
         }));
-      }
-      else {
+      } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          network: 'Network error. Please try again later.',
+          network: "Network error. Please try again later.",
         }));
       }
     }
-    }
-    
   };
-  
+  // handling input changes
 
-// handling input changes
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setUserInput((prevInput) => ({ ...prevInput, [name]: value }));
+  }
 
   return (
     <div className="SIGN-UP">
@@ -118,7 +128,7 @@ const Signup: React.FC = () => {
         <form
           action=""
           className="login-form sign-up-form-container"
-          onSubmit={handleSignup}
+          onSubmit={handleSubmit}
         >
           <div className="form-cont">
             <h1 className="login-text">Create account</h1>
@@ -127,7 +137,9 @@ const Signup: React.FC = () => {
           <div className="form-input-container">
             <div className="input-field">
               <label htmlFor="Email">Email address</label>
-              <div className="input email-input">
+              <div
+                className={`input email-input ${isfocused ? "focused" : ""}`}
+              >
                 <svg
                   width="16"
                   height="16"
@@ -144,12 +156,15 @@ const Signup: React.FC = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  // BIG ERROR HERE BRO
+                  value={userInput.email}
+                  onChange={handleChange}
+                  onFocus={handleInputFocus}
+                  onBlur={handleInputBlur}
                   placeholder="e.g. alex@email.com"
                 />
                 <p className="input-error-message" style={{ color: "red" }}>
-                  {"Please check again"}
+                  {errors.email}
                 </p>
               </div>
             </div>
@@ -173,12 +188,12 @@ const Signup: React.FC = () => {
                   type="password"
                   id="password"
                   name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={userInput.password}
+                  onChange={handleChange}
                   placeholder="At least .8 characters"
                 />
                 <p className="input-error-message" style={{ color: "red" }}>
-                  {"Please check again"}
+                  {errors.password}
                 </p>
               </div>
             </div>
@@ -201,18 +216,18 @@ const Signup: React.FC = () => {
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={userInput.confirmPassword}
+                  onChange={handleChange}
+                  onFocus={handleInputFocus}
+                  onBlur={handleInputBlur}
                   placeholder="At least .8 characters"
                 />
-                {confirmPasswordError && (
-                  <p className="error">{confirmPasswordError}</p>
-                )}{" "}
+                <p className="input-error-message" style={{ color: "red" }}>
+                  {errors.password}
+                </p>
                 {/* Display confirm password error */}
               </div>
-              <p className={`body-s ${"error"}`}>
-                {emailError}Password must contain at least 8 characters
-              </p>
+              <p className={`body-s ${"error"}`}>{errors.general}</p>
             </div>
             <button className="login-btn" type="submit">
               Create new account
