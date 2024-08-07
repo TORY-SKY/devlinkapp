@@ -151,10 +151,15 @@ cursor: pointer;
   padding: 12px 8px 12px 16px;
   margin-bottom: 24px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   /* gap: 12px; */
   margin-top: 4px;
 
+}
+.input-svg{
+  display: flex;
+  align-items: center;
 }
 /* SVGs for the input fields */
 .form-input-container .input svg{
@@ -167,11 +172,27 @@ cursor: pointer;
   box-shadow: 0 0 15px #633cff95;
 
 }
+/* this was added so that the input field error message won't take any space when there is no error to display */
+.show-error-message{
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: clamp(10px, 1vw, 12px);
+  color: red;
+  font-weight: 400;
+  
+}
+.hide-error-message{
+  display: none !important;
+}
+/* this was added so that the input field error message won't take any space when there is no error to display */
+
 
 
 .form-input-container .input input{
 
-  width: 60%;
+  width: 100%;
   height: 100%;
   font-size: 16px;
   font-weight: 400;
@@ -180,14 +201,16 @@ cursor: pointer;
   border: none;
   outline: none;
   background-color: transparent;
-  margin-right: 4px;
+  /* margin-right: 4px; */
 }
 .input-error-message{
-  font-size: clamp(12px, 1vw, 12px);
+  font-size: clamp(10px, 1vw, 12px);
   color: red;
   font-weight: 400;
 }
-
+*{
+  /* outline: 1px solid red; */
+}
 .form-input-container .login-btn{
   width: 100%;
   border-radius: 8px;
