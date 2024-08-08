@@ -316,6 +316,14 @@ width: 100%;
   width: clamp(1rem 3vw 4rem);
   height: auto;
 }
+/* sign up succcessful modal */
+.signup-successful-modal{
+  position: absolute;
+  background-color: var(--white-color);
+  border-radius: 8px;
+  z-index: 4000;
+  padding: 20px;
+}
 @media (min-width: 769px){
   .logo-text{
     display: flex;

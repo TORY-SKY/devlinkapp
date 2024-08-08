@@ -1,10 +1,11 @@
 import { useState, FocusEvent, ChangeEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../common/firebase";
 import { FormErrors, UserInput } from "./Interface";
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate();
   // input focused state
   const [isfocused, setFocused] = useState<string>("");
   const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
@@ -76,13 +77,21 @@ const Signup: React.FC = () => {
     if (!validateInput()) {
       return;
     }
-
+    const checkUsername = () => {
+      if (userInput.email == "blessingadesinaa@gmail.com") {
+        alert("Welcome, Atom");
+      }
+    };
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         userInput.email,
         userInput.password
-      );
+      ).then(() => {
+        navigate("/addlink");
+        console.log("user successfully signup");
+        checkUsername();
+      });
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         setErrors((prevErrors) => ({
@@ -278,6 +287,10 @@ const Signup: React.FC = () => {
             <p>Already have an account? </p> <Link to="/login">Login</Link>
           </div>
         </form>
+      </div>
+      <div className="signup-successful-modal">
+        {/* Succussfull created an account modal */}
+        <h1>Sign up successful</h1>
       </div>
     </div>
   );
