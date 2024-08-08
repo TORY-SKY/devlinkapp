@@ -10,4 +10,5 @@ export type FormErrors = {
   confirmPassword: string;
   network: string;
   general: string;
+  successMessage: string;
 };

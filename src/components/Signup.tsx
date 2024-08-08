@@ -28,6 +28,7 @@ const Signup: React.FC = () => {
     confirmPassword: "",
     network: "",
     general: "",
+    successMessage: "",
   });
   // error mesages object
   const validateInput = () => {
@@ -37,6 +38,7 @@ const Signup: React.FC = () => {
       confirmPassword: "",
       network: "",
       general: "",
+      successMessage: "",
     };
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInput.email)) {
@@ -46,18 +48,21 @@ const Signup: React.FC = () => {
     // Password validation
     if (userInput.password.length < 8) {
       newErrors.password = "Please check again";
+      newErrors.general = "Password must be atleast 8 character";
     }
 
     // Confirm password validation
     if (userInput.password !== userInput.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match.";
+      newErrors.general = "Passwords do not match.";
     }
 
     // Check for empty fields
     if (!userInput.email || !userInput.password || !userInput.confirmPassword) {
       newErrors.general = "All fields are required.";
+    } else if (userInput.password !== userInput.confirmPassword) {
+      newErrors.general = "Passwords do not match.";
     }
-
     setErrors(newErrors);
 
     // Return true if no errors
@@ -102,6 +107,12 @@ const Signup: React.FC = () => {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setUserInput((prevInput) => ({ ...prevInput, [name]: value }));
+    const Check = () => {
+      if (userInput.password === userInput.confirmPassword) {
+        errors.confirmPassword = "";
+        errors.password = "";
+      }
+    };
   }
 
   return (
@@ -212,8 +223,8 @@ const Signup: React.FC = () => {
                 <p
                   className={`input-error-message ${
                     errors.password == ""
-                      ? "show-error-message"
-                      : "hide-error-message"
+                      ? "hide-error-message"
+                      : "show-error-message"
                   }`}
                 >
                   {errors.password}
@@ -253,7 +264,7 @@ const Signup: React.FC = () => {
                 </div>
 
                 <p className="input-error-message" style={{ color: "red" }}>
-                  {errors.password}
+                  {errors.confirmPassword}
                 </p>
                 {/* Display confirm password error */}
               </div>

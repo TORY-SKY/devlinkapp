@@ -87,9 +87,7 @@ cursor: pointer;
 .logo-text{
   display: none;
 }
-*{
-  /* outline: 1px solid red; */
-}
+
 
 /* LOGIN FORM PHONE SCREEN STYLING */
 .login-form-container{ 
@@ -140,9 +138,7 @@ cursor: pointer;
   font-weight: 400;
   color: var(--dark-color);
 }
-*{
-  /* outline: 1px solid red; */
-}
+
 
 .form-input-container .input{
   position: relative;
@@ -160,6 +156,7 @@ cursor: pointer;
 .input-svg{
   display: flex;
   align-items: center;
+  background-color: 12px solid purple;
 }
 /* SVGs for the input fields */
 .form-input-container .input svg{
@@ -174,7 +171,9 @@ cursor: pointer;
 }
 /* this was added so that the input field error message won't take any space when there is no error to display */
 .show-error-message{
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: right;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -183,6 +182,7 @@ cursor: pointer;
   font-weight: 400;
   
 }
+
 .hide-error-message{
   display: none !important;
 }
@@ -208,8 +208,8 @@ cursor: pointer;
   color: red;
   font-weight: 400;
 }
-*{
-  /* outline: 1px solid red; */
+.input-svg{
+width: 100%;
 }
 .form-input-container .login-btn{
   width: 100%;
