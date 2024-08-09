@@ -1,11 +1,18 @@
-import { useState, FocusEvent, ChangeEvent } from "react";
+import { useState, FocusEvent, ChangeEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../common/firebase";
 import { FormErrors, UserInput } from "./Interface";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup: React.FC = () => {
+  // for navigation after successfully signin up
   const navigate = useNavigate();
+  // Toastify function
+  const signUpSuccessNotify = () => {
+    toast("Sign up successful");
+  };
   // input focused state
   const [isfocused, setFocused] = useState<string>("");
   const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
@@ -60,6 +67,7 @@ const Signup: React.FC = () => {
 
     // Check for empty fields
     if (!userInput.email || !userInput.password || !userInput.confirmPassword) {
+      toast.error("Something ain't right");
       newErrors.general = "All fields are required.";
     } else if (userInput.password !== userInput.confirmPassword) {
       newErrors.general = "Passwords do not match.";
@@ -77,22 +85,24 @@ const Signup: React.FC = () => {
     if (!validateInput()) {
       return;
     }
-    const checkUsername = () => {
-      if (userInput.email == "blessingadesinaa@gmail.com") {
-        alert("Welcome, Atom");
-      }
-    };
+    // const checkUsername = () => {
+    //   if (userInput.email == "blessingadesinaa@gmail.com") {
+    //     alert("Welcome, Atom");
+    //   }
+    // };
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         userInput.email,
         userInput.password
       ).then(() => {
+        toast.success("Sign up successful, welcome to the tribe");
+        // useEffect()
         navigate("/addlink");
         console.log("user successfully signup");
-        checkUsername();
       });
     } catch (error: any) {
+      toast.error("Unsuccessful signup");
       if (error.code === "auth/email-already-in-use") {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -126,6 +136,7 @@ const Signup: React.FC = () => {
 
   return (
     <div className="SIGN-UP">
+      <ToastContainer />
       <div className="login-form-container">
         <div className="app-logo-container headerr">
           <svg
@@ -288,9 +299,13 @@ const Signup: React.FC = () => {
           </div>
         </form>
       </div>
-      <div className="signup-successful-modal">
+      <div className="signup-successful-modal" style={{ display: "none" }}>
         {/* Succussfull created an account modal */}
         <h1>Sign up successful</h1>
+        <button onClick={signUpSuccessNotify}>
+          {" "}
+          click to display signup toast
+        </button>
       </div>
     </div>
   );
