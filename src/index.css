@@ -208,6 +208,10 @@ cursor: pointer;
   color: red;
   font-weight: 400;
 }
+ .input.error {
+  border: 1px solid red !important; /* Adjust the thickness and style as needed */
+  transition: all ease-in-out;
+}
 .input-svg{
 width: 100%;
 }
@@ -398,6 +402,10 @@ width: 100%;
   padding: 20px;
   border-radius: 8px;
 
+}
+
+.form-input-container .input{
+  width: 396px;
 }
   /* SIGN UP PAGE RESPONSIVENESS */
   .SIGN-UP{

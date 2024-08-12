@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signup: React.FC = () => {
+  const [hasError, setHasError] = useState<boolean>(false);
   // for navigation after successfully signin up
   const navigate = useNavigate();
   // Toastify function
@@ -69,8 +70,10 @@ const Signup: React.FC = () => {
     if (!userInput.email || !userInput.password || !userInput.confirmPassword) {
       toast.error("Something ain't right");
       newErrors.general = "All fields are required.";
+      setHasError(true);
     } else if (userInput.password !== userInput.confirmPassword) {
       newErrors.general = "Passwords do not match.";
+      setHasError(true);
     }
     setErrors(newErrors);
 
@@ -102,7 +105,6 @@ const Signup: React.FC = () => {
         console.log("user successfully signup");
       });
     } catch (error: any) {
-      toast.error("Unsuccessful signup");
       if (error.code === "auth/email-already-in-use") {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -119,6 +121,8 @@ const Signup: React.FC = () => {
           network: "Network error. Please try again later.",
         }));
       }
+
+      toast.error("Something's wrong" + " " + error);
     }
   };
   // handling input changes
@@ -126,12 +130,6 @@ const Signup: React.FC = () => {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setUserInput((prevInput) => ({ ...prevInput, [name]: value }));
-    const Check = () => {
-      if (userInput.password === userInput.confirmPassword) {
-        errors.confirmPassword = "";
-        errors.password = "";
-      }
-    };
   }
 
   return (
@@ -171,7 +169,7 @@ const Signup: React.FC = () => {
               <div
                 className={`input email-input ${
                   isfocused == "email" ? "focused" : ""
-                }`}
+                } ${errors.email !== "" ? "error" : ""}`}
               >
                 <div className="input-svg">
                   <svg
@@ -212,7 +210,10 @@ const Signup: React.FC = () => {
             <div className="input-field">
               <label htmlFor="password">Create Password</label>
               <div
-                className={`input ${isfocused == "password" ? "focused" : ""}`}
+                className={`input ${isfocused == "password" ? "focused" : ""} ${
+                  errors.password !== "" ? "error" : ""
+                }
+                }`}
               >
                 <div className="input-svg">
                   <svg
@@ -256,7 +257,7 @@ const Signup: React.FC = () => {
               <div
                 className={`input ${
                   isfocused == "confirmPassword" ? "focused" : ""
-                }`}
+                } ${errors.confirmPassword !== "" ? "error" : ""}`}
               >
                 <div className="input-svg">
                   <svg
@@ -288,7 +289,7 @@ const Signup: React.FC = () => {
                 </p>
                 {/* Display confirm password error */}
               </div>
-              <p className={`body-s ${"error"}`}>{errors.general}</p>
+              <p className={`body-s`}>{errors.general}</p>
             </div>
             <button className="login-btn" type="submit">
               Create new account

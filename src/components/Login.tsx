@@ -1,6 +1,22 @@
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState, FocusEvent, ReactEventHandler } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const auth = getAuth();
+
+  // input focused state
+  const [isFocused, setFocused] = useState<string>("");
+  const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
+    setFocused(e.target.id);
+  };
+  const handleInputBlur = () => {
+    setFocused("");
+  };
+  // submit function
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
   return (
     <div className="LOGIN-CONTAINER">
       <div className="login-form-container login-form-h">
@@ -22,7 +38,11 @@ const Login = () => {
           <p className="appName">devlinks</p>
         </div>
         {/* /\login form */}
-        <form action="" className="login-form the-login-form">
+        <form
+          action=""
+          className="login-form the-login-form"
+          onSubmit={handleSubmit}
+        >
           <div className="form-cont">
             <h1 className="login-text">Login</h1>
             <p className="body-m">
@@ -32,7 +52,7 @@ const Login = () => {
           <div className="form-input-container">
             <div className="input-field">
               <label htmlFor="Email">Email address</label>
-              <div className="input">
+              <div className={`input ${isFocused == "email" ? "focused" : ""}`}>
                 <svg
                   width="16"
                   height="16"
@@ -46,12 +66,20 @@ const Login = () => {
                   />
                 </svg>
 
-                <input type="email" placeholder="e.g. alex@email.com" />
+                <input
+                  onFocus={handleInputFocus}
+                  onBlur={handleInputBlur}
+                  type="email"
+                  placeholder="e.g. alex@email.com"
+                  id="email"
+                />
               </div>
             </div>
             <div className="input-field">
               <label htmlFor="Email">Password</label>
-              <div className="input">
+              <div
+                className={`input ${isFocused == "password" ? "focused" : ""}`}
+              >
                 <svg
                   width="16"
                   height="16"
@@ -65,10 +93,18 @@ const Login = () => {
                   />
                 </svg>
 
-                <input type="password" placeholder="Enter your password" />
+                <input
+                  onFocus={handleInputFocus}
+                  onBlur={handleInputBlur}
+                  type="password"
+                  placeholder="Enter your password"
+                  id="password"
+                />
               </div>
             </div>
-            <button className="login-btn" type="submit">Login</button>
+            <button className="login-btn" type="submit">
+              Login
+            </button>
           </div>
           <div className="link-to-create-account">
             <p>Don't have an accout? </p>{" "}
