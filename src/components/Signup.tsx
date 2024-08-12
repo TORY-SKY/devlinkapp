@@ -94,13 +94,13 @@ const Signup: React.FC = () => {
     //   }
     // };
     try {
-      const userCredentials = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         userInput.email,
         userInput.password
       ).then(() => {
         toast.success("Sign up successful, welcome to the tribe");
-        // useEffect()
+
         navigate("/addlink");
         console.log("user successfully signup");
       });
@@ -126,7 +126,6 @@ const Signup: React.FC = () => {
     }
   };
   // handling input changes
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setUserInput((prevInput) => ({ ...prevInput, [name]: value }));

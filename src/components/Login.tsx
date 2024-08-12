@@ -1,22 +1,70 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, FocusEvent, ReactEventHandler } from "react";
 import { Link } from "react-router-dom";
+import { FormErrors, UserInput, SignInput } from "./Interface";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const auth = getAuth();
-
   // input focused state
   const [isFocused, setFocused] = useState<string>("");
+  const [hasError, setHasError] = useState<boolean>(false);
+  // email and password inputs
+  const [UserInput, setUserInput] = useState<SignInput>({
+    email: "",
+    password: "",
+  });
   const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
     setFocused(e.target.id);
   };
   const handleInputBlur = () => {
     setFocused("");
   };
+  //
+  const validateInput = () => {
+    const newErrors: FormErrors = {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      network: "",
+      general: "",
+      successMessage: "",
+    };
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(UserInput.email)) {
+      newErrors.email = "Invalid email format.";
+    }
+
+    // Password validation
+    if (UserInput.password.length < 8) {
+      newErrors.password = "Please check again";
+      newErrors.general = "Password must be atleast 8 character";
+    }
+
+    // Check for empty fields
+    if (!UserInput.email || !UserInput.password) {
+      toast.error("Something ain't right");
+      newErrors.general = "All fields are required.";
+      setHasError(true);
+    }
+
+    // Return true if no errors
+    return Object.values(newErrors).every((error) => error === "");
+  };
   // submit function
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateInput) {
+      console.log("hello world");
+    }
   };
+  // login inputs extractions
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setUserInput((prevInput) => ({ ...prevInput, [name]: value }));
+
+    // firebase authentication
+  }
+
   return (
     <div className="LOGIN-CONTAINER">
       <div className="login-form-container login-form-h">
@@ -67,12 +115,16 @@ const Login = () => {
                 </svg>
 
                 <input
+                  onChange={handleChange}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
                   type="email"
                   placeholder="e.g. alex@email.com"
                   id="email"
+                  value={UserInput.email}
+                  name="email"
                 />
+                <p className={`input-error-message`}>Invalid emal format</p>
               </div>
             </div>
             <div className="input-field">
@@ -94,12 +146,16 @@ const Login = () => {
                 </svg>
 
                 <input
+                  onChange={handleChange}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
                   type="password"
                   placeholder="Enter your password"
                   id="password"
+                  name="password"
+                  value={UserInput.password}
                 />
+                <p className={`input-error-message`}>Invalid emal format</p>
               </div>
             </div>
             <button className="login-btn" type="submit">

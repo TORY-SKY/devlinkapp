@@ -12,3 +12,7 @@ export type FormErrors = {
   general: string;
   successMessage: string;
 };
+export type SignInput = {
+  email: string;
+  password: string;
+};
