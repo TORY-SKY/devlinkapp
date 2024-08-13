@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, FocusEvent, ReactEventHandler } from "react";
 import { Link } from "react-router-dom";
-import { FormErrors, UserInput, SignInput } from "./Interface";
+import { FormErrors, UserInput, SignInput, SigninErrors } from "./Interface";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -13,6 +13,13 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<SigninErrors>({
+    email: "",
+    password: "",
+    network: "",
+    general: "",
+    successMessage: "string",
+  });
   const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
     setFocused(e.target.id);
   };
@@ -21,10 +28,9 @@ const Login = () => {
   };
   //
   const validateInput = () => {
-    const newErrors: FormErrors = {
+    const newErrors: SigninErrors = {
       email: "",
       password: "",
-      confirmPassword: "",
       network: "",
       general: "",
       successMessage: "",
@@ -32,12 +38,6 @@ const Login = () => {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(UserInput.email)) {
       newErrors.email = "Invalid email format.";
-    }
-
-    // Password validation
-    if (UserInput.password.length < 8) {
-      newErrors.password = "Please check again";
-      newErrors.general = "Password must be atleast 8 character";
     }
 
     // Check for empty fields
@@ -48,13 +48,24 @@ const Login = () => {
     }
 
     // Return true if no errors
-    return Object.values(newErrors).every((error) => error === "");
+    return Object.values(newErrors).every((error) => error === "one o kan");
   };
   // submit function
-  const handleSubmit = (e: React.FormEvent) => {
+  const auth = getAuth();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateInput) {
-      console.log("hello world");
+      try {
+        await signInWithEmailAndPassword(
+          auth,
+          UserInput.email,
+          UserInput.password
+        );
+
+        return true;
+      } catch (error) {
+        console.log(hasError);
+      }
     }
   };
   // login inputs extractions
@@ -100,7 +111,11 @@ const Login = () => {
           <div className="form-input-container">
             <div className="input-field">
               <label htmlFor="Email">Email address</label>
-              <div className={`input ${isFocused == "email" ? "focused" : ""}`}>
+              <div
+                className={`input ${isFocused == "email" ? "focused" : ""} ${
+                  hasError ? "error" : ""
+                }`}
+              >
                 <svg
                   width="16"
                   height="16"
