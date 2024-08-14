@@ -1,10 +1,11 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, FocusEvent, ReactEventHandler } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormErrors, UserInput, SignInput, SigninErrors } from "./Interface";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
   // input focused state
   const [isFocused, setFocused] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
@@ -20,6 +21,7 @@ const Login = () => {
     general: "",
     successMessage: "string",
   });
+
   const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
     setFocused(e.target.id);
   };
@@ -27,45 +29,82 @@ const Login = () => {
     setFocused("");
   };
   //
-  const validateInput = () => {
-    const newErrors: SigninErrors = {
-      email: "",
-      password: "",
-      network: "",
-      general: "",
-      successMessage: "",
-    };
 
+  const validateInput = () => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(UserInput.email)) {
-      newErrors.email = "Invalid email format.";
+      errors.email = "Invalid email format.";
     }
 
     // Check for empty fields
     if (!UserInput.email || !UserInput.password) {
       toast.error("Something ain't right");
-      newErrors.general = "All fields are required.";
+      errors.general = "All fields are required.";
       setHasError(true);
     }
 
     // Return true if no errors
-    return Object.values(newErrors).every((error) => error === "one o kan");
+    return Object.values(errors).every((error) => error === "");
   };
   // submit function
-  const auth = getAuth();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const auth = getAuth();
     if (!validateInput) {
-      try {
-        await signInWithEmailAndPassword(
-          auth,
-          UserInput.email,
-          UserInput.password
-        );
-
-        return true;
-      } catch (error) {
-        console.log(hasError);
+      return;
+    }
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        UserInput.email,
+        UserInput.password
+      ).then(() => {
+        toast.success("Sign up successful, welcome to the tribe");
+        navigate("/addlink");
+        console.log("user successfully signup");
+      });
+    } catch (error: any) {
+      if (error.code === "auth/invalid-credential") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "invalid email or password",
+        }));
       }
+      if (error.code === "auth/missing-password") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: "enter password",
+        }));
+        setHasError(true);
+      }
+      if (
+        error.code === "auth/missing-password" &&
+        error.code === "auth/invalid-email"
+      ) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "field cannot be empty",
+        }));
+        setHasError(true);
+      }
+      if (error.code === "auth/invalid-email") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "invalid email",
+        }));
+      }
+      if (error.code === "auth/invalid-password") {
+        alert();
+      }
+      if (error.code == "auth/user-disabled") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "account disabled",
+        }));
+        console.log(error.code);
+        console.log(validateInput());
+      }
+      console.log(error.password);
     }
   };
   // login inputs extractions
@@ -113,66 +152,91 @@ const Login = () => {
               <label htmlFor="Email">Email address</label>
               <div
                 className={`input ${isFocused == "email" ? "focused" : ""} ${
-                  hasError ? "error" : ""
+                  errors.email !== "" ? "error" : ""
                 }`}
               >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14 3H2C1.86739 3 1.74021 3.05268 1.64645 3.14645C1.55268 3.24021 1.5 3.36739 1.5 3.5V12C1.5 12.2652 1.60536 12.5196 1.79289 12.7071C1.98043 12.8946 2.23478 13 2.5 13H13.5C13.7652 13 14.0196 12.8946 14.2071 12.7071C14.3946 12.5196 14.5 12.2652 14.5 12V3.5C14.5 3.36739 14.4473 3.24021 14.3536 3.14645C14.2598 3.05268 14.1326 3 14 3ZM13.5 12H2.5V4.63688L7.66187 9.36875C7.75412 9.45343 7.87478 9.50041 8 9.50041C8.12522 9.50041 8.24588 9.45343 8.33813 9.36875L13.5 4.63688V12Z"
-                    fill="#737373"
-                  />
-                </svg>
+                <div className="input-svg">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 3H2C1.86739 3 1.74021 3.05268 1.64645 3.14645C1.55268 3.24021 1.5 3.36739 1.5 3.5V12C1.5 12.2652 1.60536 12.5196 1.79289 12.7071C1.98043 12.8946 2.23478 13 2.5 13H13.5C13.7652 13 14.0196 12.8946 14.2071 12.7071C14.3946 12.5196 14.5 12.2652 14.5 12V3.5C14.5 3.36739 14.4473 3.24021 14.3536 3.14645C14.2598 3.05268 14.1326 3 14 3ZM13.5 12H2.5V4.63688L7.66187 9.36875C7.75412 9.45343 7.87478 9.50041 8 9.50041C8.12522 9.50041 8.24588 9.45343 8.33813 9.36875L13.5 4.63688V12Z"
+                      fill="#737373"
+                    />
+                  </svg>
 
-                <input
-                  onChange={handleChange}
-                  onFocus={handleInputFocus}
-                  onBlur={handleInputBlur}
-                  type="email"
-                  placeholder="e.g. alex@email.com"
-                  id="email"
-                  value={UserInput.email}
-                  name="email"
-                />
-                <p className={`input-error-message`}>Invalid emal format</p>
+                  <input
+                    onChange={handleChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    type="email"
+                    placeholder="e.g. alex@email.com"
+                    id="email"
+                    value={UserInput.email}
+                    name="email"
+                  />
+                </div>
+
+                <p
+                  className={`input-error-message ${
+                    errors.email == ""
+                      ? "hide-error-message"
+                      : "show-error-message"
+                  }`}
+                >
+                  {errors.email}
+                </p>
               </div>
             </div>
             <div className="input-field">
               <label htmlFor="Email">Password</label>
               <div
-                className={`input ${isFocused == "password" ? "focused" : ""}`}
+                className={`input ${isFocused == "password" ? "focused" : ""} ${
+                  errors.password !== "" ? "error" : ""
+                }`}
               >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13 5H11V3.5C11 2.70435 10.6839 1.94129 10.1213 1.37868C9.55871 0.81607 8.79565 0.5 8 0.5C7.20435 0.5 6.44129 0.81607 5.87868 1.37868C5.31607 1.94129 5 2.70435 5 3.5V5H3C2.73478 5 2.48043 5.10536 2.29289 5.29289C2.10536 5.48043 2 5.73478 2 6V13C2 13.2652 2.10536 13.5196 2.29289 13.7071C2.48043 13.8946 2.73478 14 3 14H13C13.2652 14 13.5196 13.8946 13.7071 13.7071C13.8946 13.5196 14 13.2652 14 13V6C14 5.73478 13.8946 5.48043 13.7071 5.29289C13.5196 5.10536 13.2652 5 13 5ZM8.5 9.91438V11.5C8.5 11.6326 8.44732 11.7598 8.35355 11.8536C8.25979 11.9473 8.13261 12 8 12C7.86739 12 7.74021 11.9473 7.64645 11.8536C7.55268 11.7598 7.5 11.6326 7.5 11.5V9.91438C7.16639 9.79643 6.88522 9.56434 6.70618 9.25914C6.52715 8.95393 6.46177 8.59526 6.5216 8.24651C6.58144 7.89776 6.76264 7.58139 7.03317 7.35332C7.3037 7.12525 7.64616 7.00016 8 7.00016C8.35384 7.00016 8.6963 7.12525 8.96683 7.35332C9.23736 7.58139 9.41856 7.89776 9.4784 8.24651C9.53823 8.59526 9.47285 8.95393 9.29382 9.25914C9.11478 9.56434 8.83361 9.79643 8.5 9.91438ZM10 5H6V3.5C6 2.96957 6.21071 2.46086 6.58579 2.08579C6.96086 1.71071 7.46957 1.5 8 1.5C8.53043 1.5 9.03914 1.71071 9.41421 2.08579C9.78929 2.46086 10 2.96957 10 3.5V5Z"
-                    fill="#737373"
-                  />
-                </svg>
+                <div className="input-svg">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 5H11V3.5C11 2.70435 10.6839 1.94129 10.1213 1.37868C9.55871 0.81607 8.79565 0.5 8 0.5C7.20435 0.5 6.44129 0.81607 5.87868 1.37868C5.31607 1.94129 5 2.70435 5 3.5V5H3C2.73478 5 2.48043 5.10536 2.29289 5.29289C2.10536 5.48043 2 5.73478 2 6V13C2 13.2652 2.10536 13.5196 2.29289 13.7071C2.48043 13.8946 2.73478 14 3 14H13C13.2652 14 13.5196 13.8946 13.7071 13.7071C13.8946 13.5196 14 13.2652 14 13V6C14 5.73478 13.8946 5.48043 13.7071 5.29289C13.5196 5.10536 13.2652 5 13 5ZM8.5 9.91438V11.5C8.5 11.6326 8.44732 11.7598 8.35355 11.8536C8.25979 11.9473 8.13261 12 8 12C7.86739 12 7.74021 11.9473 7.64645 11.8536C7.55268 11.7598 7.5 11.6326 7.5 11.5V9.91438C7.16639 9.79643 6.88522 9.56434 6.70618 9.25914C6.52715 8.95393 6.46177 8.59526 6.5216 8.24651C6.58144 7.89776 6.76264 7.58139 7.03317 7.35332C7.3037 7.12525 7.64616 7.00016 8 7.00016C8.35384 7.00016 8.6963 7.12525 8.96683 7.35332C9.23736 7.58139 9.41856 7.89776 9.4784 8.24651C9.53823 8.59526 9.47285 8.95393 9.29382 9.25914C9.11478 9.56434 8.83361 9.79643 8.5 9.91438ZM10 5H6V3.5C6 2.96957 6.21071 2.46086 6.58579 2.08579C6.96086 1.71071 7.46957 1.5 8 1.5C8.53043 1.5 9.03914 1.71071 9.41421 2.08579C9.78929 2.46086 10 2.96957 10 3.5V5Z"
+                      fill="#737373"
+                    />
+                  </svg>
 
-                <input
-                  onChange={handleChange}
-                  onFocus={handleInputFocus}
-                  onBlur={handleInputBlur}
-                  type="password"
-                  placeholder="Enter your password"
-                  id="password"
-                  name="password"
-                  value={UserInput.password}
-                />
-                <p className={`input-error-message`}>Invalid emal format</p>
+                  <input
+                    onChange={handleChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    type="password"
+                    placeholder="Enter your password"
+                    id="password"
+                    name="password"
+                    value={UserInput.password}
+                  />
+                </div>
+
+                <p
+                  className={`input-error-message ${
+                    errors.email == ""
+                      ? "hide-error-message"
+                      : "show-error-message"
+                  }`}
+                >
+                  {errors.password}
+                </p>
               </div>
             </div>
+            <p>{errors.email}</p>
             <button className="login-btn" type="submit">
               Login
             </button>

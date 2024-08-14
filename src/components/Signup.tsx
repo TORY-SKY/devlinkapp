@@ -8,29 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Signup: React.FC = () => {
   const [hasError, setHasError] = useState<boolean>(false);
-  // for navigation after successfully signin up
-  const navigate = useNavigate();
-  // Toastify function
-  const signUpSuccessNotify = () => {
-    toast("Sign up successful");
-  };
-  // input focused state
-  const [isfocused, setFocused] = useState<string>("");
-  const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
-    setFocused(e.target.id);
-  };
-  const handleInputBlur = () => {
-    setFocused("");
-  };
-  // input focused state ^^^
-
-  // setting up sign-up authentication
   const [userInput, setUserInput] = useState<UserInput>({
     email: "",
     password: "",
     confirmPassword: "",
   });
-
   const [errors, setErrors] = useState<FormErrors>({
     email: "",
     password: "",
@@ -39,6 +21,24 @@ const Signup: React.FC = () => {
     general: "",
     successMessage: "",
   });
+  const [isfocused, setFocused] = useState<string>("");
+  // for navigation after successfully signin up
+  const navigate = useNavigate();
+  // Toastify function
+  const signUpSuccessNotify = () => {
+    toast("Sign up successful");
+  };
+  // input focused state
+
+  const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
+    setFocused(e.target.id);
+  };
+  const handleInputBlur = () => {
+    setFocused("");
+  };
+
+  // setting up sign-up authentication
+
   // error mesages object
   const validateInput = () => {
     const newErrors: FormErrors = {
