@@ -4,6 +4,8 @@ import ErrorPage from "./components/ErrorPage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Addlink from "./components/Addlink";
+import AuthProtection from "./AuthProtection";
+import ProfileDetails from "./components/ProfileDetails";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,7 +16,9 @@ function App() {
     },
     {
       path: "/nav",
-      element: <Navbar />,
+      // had to wrap it like this cause i got this typscript error ()
+      //Type 'Element | ((props: any) => Element)' is not assignable to type 'ReactNode'
+      element: <AuthProtection Component={Navbar} />,
       errorElement: "error",
     },
     {
@@ -29,8 +33,13 @@ function App() {
     },
     {
       path: "/addlink",
-      element: <Addlink />,
+      element: <AuthProtection Component={Addlink} />,
       errorElement: "error reaching this page",
+    },
+    {
+      path: "/profile",
+      element: <AuthProtection Component={ProfileDetails} />,
+      errorElement: "error reaching profile",
     },
   ]);
   return (

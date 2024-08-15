@@ -2,10 +2,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, FocusEvent, ReactEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FormErrors, UserInput, SignInput, SigninErrors } from "./Interface";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
+  // toast for displaying error info
+
   // input focused state
   const [isFocused, setFocused] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
@@ -34,14 +36,16 @@ const Login = () => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(UserInput.email)) {
       errors.email = "Invalid email format.";
     }
-
     // Check for empty fields
     if (!UserInput.email || !UserInput.password) {
-      toast.error("Something ain't right");
       errors.general = "All fields are required.";
       setHasError(true);
     }
-
+    if (UserInput.password === "") {
+      alert("have you lost your mfn black as** mind?");
+      setHasError(true);
+      errors.password = "have you lost your mfn black as** mind?";
+    }
     // Return true if no errors
     return Object.values(errors).every((error) => error === "");
   };
@@ -59,7 +63,6 @@ const Login = () => {
         UserInput.email,
         UserInput.password
       ).then(() => {
-        toast.success("Sign up successful, welcome to the tribe");
         navigate("/addlink");
         console.log("user successfully signup");
       });
@@ -88,13 +91,13 @@ const Login = () => {
         setHasError(true);
       }
       if (error.code === "auth/invalid-email") {
+        toast.error("yo");
         setErrors((prevErrors) => ({
           ...prevErrors,
           email: "invalid email",
         }));
       }
       if (error.code === "auth/invalid-password") {
-        alert();
       }
       if (error.code == "auth/user-disabled") {
         setErrors((prevErrors) => ({
@@ -104,7 +107,13 @@ const Login = () => {
         console.log(error.code);
         console.log(validateInput());
       }
-      console.log(error.password);
+      if (error.code === "auth/network-request-failed") {
+        toast.error("network-request-failed");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          general: "Check your internet connection",
+        }));
+      }
     }
   };
   // login inputs extractions
@@ -225,15 +234,7 @@ const Login = () => {
                   />
                 </div>
 
-                <p
-                  className={`input-error-message ${
-                    errors.email == ""
-                      ? "hide-error-message"
-                      : "show-error-message"
-                  }`}
-                >
-                  {errors.password}
-                </p>
+                <p className={`body-s`}>{errors.general}</p>
               </div>
             </div>
             <p>{errors.email}</p>

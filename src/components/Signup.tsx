@@ -7,7 +7,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signup: React.FC = () => {
-  const [hasError, setHasError] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<UserInput>({
     email: "",
     password: "",
@@ -59,7 +58,14 @@ const Signup: React.FC = () => {
       newErrors.password = "Please check again";
       newErrors.general = "Password must be atleast 8 character";
     }
+    if (!/[A-Z]/.test(userInput.password)) {
+      newErrors.password =
+        "Password must include at least one uppercase letter.";
+    }
 
+    if (!/[0-9]/.test(userInput.password)) {
+      newErrors.password = "Password must include at least one number.";
+    }
     // Confirm password validation
     if (userInput.password !== userInput.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match.";
@@ -70,10 +76,8 @@ const Signup: React.FC = () => {
     if (!userInput.email || !userInput.password || !userInput.confirmPassword) {
       toast.error("Something ain't right");
       newErrors.general = "All fields are required.";
-      setHasError(true);
     } else if (userInput.password !== userInput.confirmPassword) {
       newErrors.general = "Passwords do not match.";
-      setHasError(true);
     }
     setErrors(newErrors);
 
@@ -88,11 +92,11 @@ const Signup: React.FC = () => {
     if (!validateInput()) {
       return;
     }
-    // const checkUsername = () => {
-    //   if (userInput.email == "blessingadesinaa@gmail.com") {
-    //     alert("Welcome, Atom");
-    //   }
-    // };
+    const checkUsername = () => {
+      if (userInput.email == "blessingadesina@gmail.com") {
+        alert("Welcome, Atom");
+      }
+    };
     try {
       await createUserWithEmailAndPassword(
         auth,
@@ -100,8 +104,9 @@ const Signup: React.FC = () => {
         userInput.password
       ).then(() => {
         toast.success("Sign up successful, welcome to the tribe");
+        checkUsername();
 
-        navigate("/addlink");
+        navigate("/login");
         console.log("user successfully signup");
       });
     } catch (error: any) {
@@ -129,6 +134,7 @@ const Signup: React.FC = () => {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setUserInput((prevInput) => ({ ...prevInput, [name]: value }));
+    setFocused(name);
   }
 
   return (
@@ -288,6 +294,7 @@ const Signup: React.FC = () => {
                 </p>
                 {/* Display confirm password error */}
               </div>
+              {/* error message */}
               <p className={`body-s`}>{errors.general}</p>
             </div>
             <button className="login-btn" type="submit">
