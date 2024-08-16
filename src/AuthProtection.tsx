@@ -1,6 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./common/firebase";
-import ErrorPage from "./components/ErrorPage";
+
 import { Navigate } from "react-router-dom";
 
 interface AuthProtectionProps {

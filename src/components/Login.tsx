@@ -1,8 +1,8 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useState, FocusEvent, ReactEventHandler } from "react";
+import { useState, FocusEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FormErrors, UserInput, SignInput, SigninErrors } from "./Interface";
-import { toast, ToastContainer } from "react-toastify";
+import { SignInput, SigninErrors } from "./Interface";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,24 +39,28 @@ const Login = () => {
     // Check for empty fields
     if (!UserInput.email || !UserInput.password) {
       errors.general = "All fields are required.";
-      setHasError(true);
     }
     if (UserInput.password === "") {
-      alert("have you lost your mfn black as** mind?");
       setHasError(true);
-      errors.password = "have you lost your mfn black as** mind?";
+      errors.password = "Please check again";
     }
     // Return true if no errors
     return Object.values(errors).every((error) => error === "");
   };
   // submit function
+  const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const auth = getAuth();
-    if (!validateInput) {
+    if (!validateInput()) {
       return;
     }
+
+    if (!validateInput()) {
+      setButtonDisabled((prevState) => !prevState);
+    }
+
     try {
       await signInWithEmailAndPassword(
         auth,
@@ -234,11 +238,23 @@ const Login = () => {
                   />
                 </div>
 
-                <p className={`body-s`}>{errors.general}</p>
+                <p
+                  className={`input-error-message ${
+                    errors.password == ""
+                      ? "hide-error-message"
+                      : "show-error-message"
+                  }`}
+                >
+                  {errors.password}
+                </p>
               </div>
             </div>
             <p>{errors.email}</p>
-            <button className="login-btn" type="submit">
+            <button
+              className="login-btn"
+              type="submit"
+              disabled={buttonDisable}
+            >
               Login
             </button>
           </div>
