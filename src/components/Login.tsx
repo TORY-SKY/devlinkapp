@@ -2,7 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, FocusEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignInput, SigninErrors } from "./Interface";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +11,8 @@ const Login = () => {
   // input focused state
   const [isFocused, setFocused] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
+  const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   // email and password inputs
   const [UserInput, setUserInput] = useState<SignInput>({
     email: "",
@@ -48,7 +50,6 @@ const Login = () => {
     return Object.values(errors).every((error) => error === "");
   };
   // submit function
-  const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +71,10 @@ const Login = () => {
         navigate("/addlink");
         console.log("user successfully signup");
       });
+      console.log("user successfully signup");
     } catch (error: any) {
+      console.log(error.code);
+      alert("hello world");
       if (error.code === "auth/invalid-credential") {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -110,14 +114,16 @@ const Login = () => {
         }));
         console.log(error.code);
         console.log(validateInput());
-      }
-      if (error.code === "auth/network-request-failed") {
+      } else if (error.code === "auth/network-request-failed") {
         toast.error("network-request-failed");
         setErrors((prevErrors) => ({
           ...prevErrors,
           general: "Check your internet connection",
         }));
       }
+    } finally {
+      setLoading(false);
+      setButtonDisabled(false);
     }
   };
   // login inputs extractions
@@ -130,6 +136,7 @@ const Login = () => {
 
   return (
     <div className="LOGIN-CONTAINER">
+      <ToastContainer />
       <div className="login-form-container login-form-h">
         <div className="app-logo-container headerr">
           <svg
@@ -253,10 +260,11 @@ const Login = () => {
             <button
               className="login-btn"
               type="submit"
-              disabled={buttonDisable}
+              // disabled={buttonDisable}
             >
               Login
             </button>
+            {/* {loading ? "Logging in..." : "Login"} */}
           </div>
           <div className="link-to-create-account">
             <p>Don't have an accout? </p>{" "}
