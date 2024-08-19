@@ -1,19 +1,17 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useState, FocusEvent } from "react";
+import { useState, FocusEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignInput, SigninErrors } from "./Interface";
 import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-  // toast for displaying error info
   const [showPasswrd, setShowPasswrd] = useState<boolean>(false);
-  // input focused state
-  const [isFocused, setFocused] = useState<string>("");
+  const [focusedField, setFocusedField] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
   const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  // email and password inputs
+
   const [UserInput, setUserInput] = useState<SignInput>({
     email: "",
     password: "",
@@ -23,31 +21,45 @@ const Login = () => {
     password: "",
     network: "",
     general: "",
-    successMessage: "string",
+    successMessage: "",
   });
 
   const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
-    setFocused(e.target.id);
+    setFocusedField(e.target.id);
   };
   const handleInputBlur = () => {
-    setFocused("");
+    setFocusedField("");
   };
   //
 
   const validateInput = () => {
+    let valid = true;
+    const newErrors: SigninErrors = {
+      email: "",
+      password: "",
+      network: "",
+      general: "",
+      successMessage: "",
+    };
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(UserInput.email)) {
-      errors.email = "Invalid email format.";
+      newErrors.email = "Invalid email format.";
+      valid = false;
     }
     // Check for empty fields
     if (!UserInput.email || !UserInput.password) {
-      errors.general = "All fields are required.";
+      newErrors.general = "All fields are required.";
+      valid = false;
     }
     if (UserInput.password === "") {
       setHasError(true);
-      errors.password = "Please check again";
+      newErrors.password = "Please enter your password.";
+      valid = false;
     }
     // Return true if no errors
-    return Object.values(errors).every((error) => error === "");
+    //Object.values(errors).every((error) => error === "")
+    setErrors(newErrors);
+
+    return valid;
   };
   // submit function
 
@@ -63,7 +75,7 @@ const Login = () => {
     if (!validateInput()) {
       setButtonDisabled((prevState) => !prevState);
     }
-    console.log("hello world");
+
     try {
       await signInWithEmailAndPassword(
         auth,
@@ -124,6 +136,13 @@ const Login = () => {
 
     // firebase authentication
   }
+  // function for enabling the login button
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setButtonDisabled(UserInput.email !== "" && UserInput.password !== "");
+      return () => clearTimeout(timeOut);
+    }, 500);
+  }, [UserInput.email, UserInput.password]);
 
   return (
     <div className="LOGIN-CONTAINER">
@@ -162,7 +181,7 @@ const Login = () => {
             <div className="input-field">
               <label htmlFor="email">Email address</label>
               <div
-                className={`input ${isFocused == "email" ? "focused" : ""} ${
+                className={`input ${focusedField == "email" ? "focused" : ""} ${
                   errors.email !== "" ? "error" : ""
                 }`}
               >
@@ -206,9 +225,9 @@ const Login = () => {
             <div className="input-field">
               <label htmlFor="password">Password</label>
               <div
-                className={`input ${isFocused == "password" ? "focused" : ""} ${
-                  errors.password !== "" ? "error" : ""
-                }`}
+                className={`input ${
+                  focusedField == "password" ? "focused" : ""
+                } ${errors.password !== "" ? "error" : ""}`}
               >
                 <div className="input-svg">
                   <svg
@@ -263,7 +282,10 @@ const Login = () => {
               <Link to="/forgotPassword">forgot password</Link>
             </div>
             <button
-              className="login-btn"
+              style={{ cursor: !buttonDisable ? "not-allowed" : "pointer" }}
+              className={`login-btn ${
+                !buttonDisable ? "login-btn-disabled" : ""
+              }`}
               type="submit"
               disabled={buttonDisable}
             >

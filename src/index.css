@@ -127,6 +127,12 @@ cursor: pointer;
   color: var(--gray-color);
   margin-bottom: 20px;
 }
+/* login button disabled */
+.login-btn-disabled{
+  background-color: var(--light-purple-color) !important;
+}
+/* login button disabled */
+
 .form-input-container{
   margin-top: 40px;
 }
