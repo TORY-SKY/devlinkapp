@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Addlink from "./components/Addlink";
 import AuthProtection from "./AuthProtection";
 import ProfileDetails from "./components/ProfileDetails";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   const router = createBrowserRouter([
@@ -39,6 +40,11 @@ function App() {
     {
       path: "/profile",
       element: <AuthProtection Component={ProfileDetails} />,
+      errorElement: "error reaching profile",
+    },
+    {
+      path: "/forgotpassword",
+      element: <ForgotPassword />,
       errorElement: "error reaching profile",
     },
   ]);

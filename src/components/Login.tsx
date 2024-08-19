@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 const Login = () => {
   const navigate = useNavigate();
   // toast for displaying error info
-
+  const [showPasswrd, setShowPasswrd] = useState<boolean>(false);
   // input focused state
   const [isFocused, setFocused] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
@@ -53,28 +53,30 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const auth = getAuth();
     if (!validateInput()) {
+      setLoading(false);
       return;
     }
 
     if (!validateInput()) {
       setButtonDisabled((prevState) => !prevState);
     }
-
+    console.log("hello world");
     try {
       await signInWithEmailAndPassword(
         auth,
         UserInput.email,
         UserInput.password
       ).then(() => {
+        alert("processing addlink");
         navigate("/addlink");
         console.log("user successfully signup");
       });
       console.log("user successfully signup");
     } catch (error: any) {
       console.log(error.code);
-      alert("hello world");
       if (error.code === "auth/invalid-credential") {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -88,16 +90,7 @@ const Login = () => {
         }));
         setHasError(true);
       }
-      if (
-        error.code === "auth/missing-password" &&
-        error.code === "auth/invalid-email"
-      ) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "field cannot be empty",
-        }));
-        setHasError(true);
-      }
+
       if (error.code === "auth/invalid-email") {
         toast.error("yo");
         setErrors((prevErrors) => ({
@@ -106,6 +99,7 @@ const Login = () => {
         }));
       }
       if (error.code === "auth/invalid-password") {
+        alert(error.code);
       }
       if (error.code == "auth/user-disabled") {
         setErrors((prevErrors) => ({
@@ -121,9 +115,6 @@ const Login = () => {
           general: "Check your internet connection",
         }));
       }
-    } finally {
-      setLoading(false);
-      setButtonDisabled(false);
     }
   };
   // login inputs extractions
@@ -169,7 +160,7 @@ const Login = () => {
           </div>
           <div className="form-input-container">
             <div className="input-field">
-              <label htmlFor="Email">Email address</label>
+              <label htmlFor="email">Email address</label>
               <div
                 className={`input ${isFocused == "email" ? "focused" : ""} ${
                   errors.email !== "" ? "error" : ""
@@ -213,7 +204,7 @@ const Login = () => {
               </div>
             </div>
             <div className="input-field">
-              <label htmlFor="Email">Password</label>
+              <label htmlFor="password">Password</label>
               <div
                 className={`input ${isFocused == "password" ? "focused" : ""} ${
                   errors.password !== "" ? "error" : ""
@@ -237,7 +228,7 @@ const Login = () => {
                     onChange={handleChange}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
-                    type="password"
+                    type={!showPasswrd ? "password" : "text"}
                     placeholder="Enter your password"
                     id="password"
                     name="password"
@@ -256,15 +247,28 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <p>{errors.email}</p>
+            <div className="radio">
+              <input
+                style={{ marginRight: "8px" }}
+                type="radio"
+                name="radio"
+                id=""
+                onClick={() => {
+                  setShowPasswrd(!showPasswrd);
+                }}
+              />{" "}
+              <span>see password</span>
+            </div>
+            <div className="forgot-password">
+              <Link to="/forgotPassword">forgot password</Link>
+            </div>
             <button
               className="login-btn"
               type="submit"
-              // disabled={buttonDisable}
+              disabled={buttonDisable}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
-            {/* {loading ? "Logging in..." : "Login"} */}
           </div>
           <div className="link-to-create-account">
             <p>Don't have an accout? </p>{" "}
