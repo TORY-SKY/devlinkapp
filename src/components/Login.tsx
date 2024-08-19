@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPasswrd, setShowPasswrd] = useState<boolean>(false);
   const [focusedField, setFocusedField] = useState<string>("");
-  const [hasError, setHasError] = useState<boolean>(false);
+  // const [hasError, setHasError] = useState<boolean>(false);
   const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -51,7 +51,7 @@ const Login = () => {
       valid = false;
     }
     if (UserInput.password === "") {
-      setHasError(true);
+      // setHasError(true);
       newErrors.password = "Please enter your password.";
       valid = false;
     }
@@ -71,62 +71,41 @@ const Login = () => {
       setLoading(false);
       return;
     }
-
-    if (!validateInput()) {
-      setButtonDisabled((prevState) => !prevState);
-    }
-
+    console.log(errors);
     try {
       await signInWithEmailAndPassword(
         auth,
         UserInput.email,
         UserInput.password
-      ).then(() => {
-        alert("processing addlink");
-        navigate("/addlink");
-        console.log("user successfully signup");
-      });
-      console.log("user successfully signup");
+      );
+      navigate("/addlink");
+      toast.success("Login successful!");
     } catch (error: any) {
-      console.log(error.code);
-      if (error.code === "auth/invalid-credential") {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "invalid email or password",
-        }));
-      }
-      if (error.code === "auth/missing-password") {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: "enter password",
-        }));
-        setHasError(true);
-      }
-
-      if (error.code === "auth/invalid-email") {
-        toast.error("yo");
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "invalid email",
-        }));
-      }
-      if (error.code === "auth/invalid-password") {
-        alert(error.code);
-      }
-      if (error.code == "auth/user-disabled") {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "account disabled",
-        }));
-        console.log(error.code);
-        console.log(validateInput());
-      } else if (error.code === "auth/network-request-failed") {
-        toast.error("network-request-failed");
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          general: "Check your internet connection",
-        }));
-      }
+      // handle errors (function)
+      handleError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleError = (error: any) => {
+    let newErrors = { ...errors };
+    switch (error.code) {
+      case "auth/invalid-credential":
+        newErrors.email = "Invalid email or password.";
+        break;
+      case "auth/missing-password":
+        newErrors.password = "Please enter your password damn it!!";
+        break;
+      // setHasError(true);
+      case "auth/user-disabled":
+        newErrors.email = "Account disabled.";
+        break;
+      case "auth/network-request-failed":
+        newErrors.general = "Check your internet connection.";
+        break;
+      default:
+        toast.error("An unexpected error occurred");
+        break;
     }
   };
   // login inputs extractions

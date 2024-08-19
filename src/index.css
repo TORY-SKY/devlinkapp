@@ -129,7 +129,7 @@ cursor: pointer;
 }
 /* login button disabled */
 .login-btn-disabled{
-  background-color: var(--light-purple-color) !important;
+  background-color: var(--fade-lightpurple-color) !important;
 }
 /* login button disabled */
 
