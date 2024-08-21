@@ -11,6 +11,7 @@ const Login = () => {
   // const [hasError, setHasError] = useState<boolean>(false);
   const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const [UserInput, setUserInput] = useState<SignInput>({
     email: "",
@@ -58,7 +59,6 @@ const Login = () => {
     // Return true if no errors
     //Object.values(errors).every((error) => error === "")
     setErrors(newErrors);
-
     return valid;
   };
   // submit function
@@ -66,13 +66,14 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const auth = getAuth();
+
     if (!validateInput()) {
       setLoading(false);
       return;
     }
     console.log(errors);
     try {
+      const auth = getAuth();
       await signInWithEmailAndPassword(
         auth,
         UserInput.email,
@@ -88,6 +89,7 @@ const Login = () => {
     }
   };
   const handleError = (error: any) => {
+    console.log(error);
     let newErrors = { ...errors };
     switch (error.code) {
       case "auth/invalid-credential":
@@ -95,8 +97,8 @@ const Login = () => {
         break;
       case "auth/missing-password":
         newErrors.password = "Please enter your password damn it!!";
+        setHasError(true);
         break;
-      // setHasError(true);
       case "auth/user-disabled":
         newErrors.email = "Account disabled.";
         break;
@@ -107,15 +109,15 @@ const Login = () => {
         toast.error("An unexpected error occurred");
         break;
     }
+    setErrors(newErrors);
   };
   // login inputs extractions
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setUserInput((prevInput) => ({ ...prevInput, [name]: value }));
-
     // firebase authentication
   }
-  // function for enabling the login button
+  // function for enabling the login button provided the input fields are no longer empty
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setButtonDisabled(UserInput.email !== "" && UserInput.password !== "");
@@ -145,11 +147,7 @@ const Login = () => {
           <p className="appName">devlinks</p>
         </div>
         {/* /\login form */}
-        <form
-          action=""
-          className="login-form the-login-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="login-form the-login-form" onSubmit={handleSubmit}>
           <div className="form-cont">
             <h1 className="login-text">Login</h1>
             <p className="body-m">
@@ -251,9 +249,8 @@ const Login = () => {
                 type="radio"
                 name="radio"
                 id=""
-                onClick={() => {
-                  setShowPasswrd(!showPasswrd);
-                }}
+                checked={showPasswrd}
+                onChange={() => setShowPasswrd((prev) => !prev)}
               />{" "}
               <span>see password</span>
             </div>
@@ -266,7 +263,7 @@ const Login = () => {
                 !buttonDisable ? "login-btn-disabled" : ""
               }`}
               type="submit"
-              disabled={buttonDisable}
+              // disabled={loading || buttonDisable}
             >
               {loading ? "Logging in..." : "Login"}
             </button>
