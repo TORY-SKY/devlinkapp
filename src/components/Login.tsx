@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { SignInput, SigninErrors } from "./Interface";
 import { toast, ToastContainer } from "react-toastify";
 
+import YouTubeIcon from "@mui/icons-material/YouTube";
+
 const Login = () => {
   const navigate = useNavigate();
   const [showPasswrd, setShowPasswrd] = useState<boolean>(false);
@@ -273,6 +275,7 @@ const Login = () => {
             <Link to="/signup">Create Account</Link>
           </div>
         </form>
+        <YouTubeIcon />
       </div>
     </div>
   );
