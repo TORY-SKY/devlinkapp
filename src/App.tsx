@@ -7,7 +7,7 @@ import Addlink from "./components/Addlink";
 import AuthProtection from "./AuthProtection";
 import ProfileDetails from "./components/ProfileDetails";
 import ForgotPassword from "./components/ForgotPassword";
-import Test from "./components/Test";
+import AddLinkComponent from "./components/AddLinkComponent";
 
 function App() {
   const router = createBrowserRouter([
@@ -50,7 +50,7 @@ function App() {
     },
     {
       path: "/test",
-      element: <Test />,
+      element: <AddLinkComponent />,
       errorElement: "error reaching profile",
     },
   ]);

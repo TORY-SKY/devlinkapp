@@ -1,8 +1,8 @@
+import React from "react";
 import { MenuItem, TextField } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import { HTML5Backend } from "react-dnd-html5-backend";
 // Import other icons as needed
 
 type PlatformOption = {

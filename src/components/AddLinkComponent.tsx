@@ -1,7 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 type LinkData = {
   platform: string;
@@ -51,12 +50,7 @@ const AddLinkComponent: React.FC = () => {
           />
         </div>
       ))}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleAddLink}
-        disabled={links.length >= 3}
-      >
+      <Button variant="contained" color="primary" onClick={handleAddLink}>
         Add Link
       </Button>
     </div>
