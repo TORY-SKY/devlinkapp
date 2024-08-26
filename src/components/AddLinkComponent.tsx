@@ -11,9 +11,7 @@ const AddLinkComponent: React.FC = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
 
   const handleAddLink = () => {
-    if (links.length < 3) {
-      setLinks([...links, { platform: "", url: "" }]);
-    }
+    setLinks([...links, { platform: "", url: "" }]);
   };
 
   const handleLinkChange = (
