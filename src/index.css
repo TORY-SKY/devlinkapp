@@ -261,8 +261,11 @@ width: 100%;
 }
 .add-link-container{
   margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr, 1fr;
 }
 .right-side{
+  position: relative;
   /* margin: 16px 16px; */
   background-color: var(--white-color);
   /* display: flex;
@@ -340,6 +343,14 @@ width: 100%;
   z-index: 4000;
   padding: 20px;
 }
+/* Add link componet */
+.hide-placeholder{
+  display: none;
+}
+.MenuItem:hover{
+  background-color: black;
+}
+/* Add link component styinging -end */
 @media (min-width: 769px){
   .logo-text{
     display: flex;
@@ -368,6 +379,8 @@ width: 100%;
     padding: 70px;
   }
   .left-side{
+    /* position: fixed; */
+    border: 1px solid red;
     background-color: var(--white-color);
     margin-right: 24px;
     padding: 126.5px;

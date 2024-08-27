@@ -73,7 +73,7 @@ const Login = () => {
       setLoading(false);
       return;
     }
-    console.log(errors);
+
     try {
       const auth = getAuth();
       await signInWithEmailAndPassword(
@@ -81,8 +81,8 @@ const Login = () => {
         UserInput.email,
         UserInput.password
       );
-      navigate("/addlink");
       toast.success("Login successful!");
+      navigate("/addlink");
     } catch (error: any) {
       // handle errors (function)
       handleError(error);
@@ -91,7 +91,6 @@ const Login = () => {
     }
   };
   const handleError = (error: any) => {
-    console.log(error);
     let newErrors = { ...errors };
     switch (error.code) {
       case "auth/invalid-credential":
@@ -106,6 +105,7 @@ const Login = () => {
         break;
       case "auth/network-request-failed":
         newErrors.general = "Check your internet connection.";
+        navigate("/addlink");
         break;
       default:
         toast.error("An unexpected error occurred");

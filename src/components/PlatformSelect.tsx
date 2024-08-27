@@ -3,19 +3,33 @@ import { MenuItem, TextField } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+
 // Import other icons as needed
 
 type PlatformOption = {
   label: string;
   value: string;
-  icon: JSX.Element;
+  backgroundColor?: string; // Optional background color
 };
 
 const platforms: PlatformOption[] = [
-  { label: "GitHub", value: "github", icon: <GitHubIcon /> },
-  { label: "Facebook", value: "facebook", icon: <FacebookIcon /> },
-  { label: "YouTube", value: "youtube", icon: <YouTubeIcon /> },
-  // Add other platforms
+  {
+    label: "GitHub",
+    value: "github",
+    backgroundColor: "#24292e",
+  }, // GitHub dark background
+  {
+    label: "Facebook",
+    value: "facebook",
+    backgroundColor: "#1877f2",
+  }, // Facebook blue background
+  {
+    label: "YouTube",
+    value: "youtube",
+    backgroundColor: "#ff0000",
+  }, // YouTube red background
+
+  // Add other platforms with custom backgrounds if needed
 ];
 
 type PlatformSelectProps = {
@@ -26,16 +40,24 @@ type PlatformSelectProps = {
 const PlatformSelect: React.FC<PlatformSelectProps> = ({ value, onChange }) => (
   <TextField
     select
-    label="Select Platform"
     value={value}
     onChange={onChange}
     variant="outlined"
     fullWidth
   >
     {platforms.map((platform) => (
-      <MenuItem key={platform.value} value={platform.value}>
+      <MenuItem
+        key={platform.value}
+        value={platform.value}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          backgroundColor: platform.backgroundColor, // Apply the custom background color
+          color: "white", // Ensure the text is visible
+        }}
+      >
         {platform.icon}
-        {platform.label}
+        <span style={{ marginLeft: "8px" }}>{platform.label}</span>
       </MenuItem>
     ))}
   </TextField>
