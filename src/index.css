@@ -347,8 +347,21 @@ width: 100%;
 .hide-placeholder{
   display: none;
 }
-.MenuItem:hover{
-  background-color: black;
+
+
+.link-input-container{
+  background-color: var(--almost-white-color);
+  border: 1px solid red;
+  padding: 15px;
+}
+.menu-items{
+  border: var(--lightgrey-color);
+  border-radius: 8px;
+}
+.menu-items .focused{
+  box-shadow: 0 0 15px #633cff95;
+  border: var(--purple-color);
+
 }
 /* Add link component styinging -end */
 @media (min-width: 769px){

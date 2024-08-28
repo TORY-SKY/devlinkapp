@@ -54,7 +54,7 @@ const Addlink = () => {
           </button>
           <div className="adding-links-struc">
             <div className="add-links-structure">
-              <div style={{}}>
+              <div style={{}} className={`link-input-container`}>
                 {links.map((link, index) => (
                   <div
                     key={index}
@@ -64,7 +64,11 @@ const Addlink = () => {
                     //   gap: "10px",
                     // }}
                   >
+                    <div className="description">
+                      <span>= Link #1</span>
+                    </div>
                     <PlatformSelect
+                      label="platform"
                       value={link.platform}
                       onChange={(e) =>
                         handleLinkChange(index, "platform", e.target.value)

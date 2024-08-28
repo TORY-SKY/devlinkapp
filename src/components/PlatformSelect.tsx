@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
 
 import github from "../assets/images/dropdownimg/gith.png";
@@ -42,9 +42,47 @@ const platforms: PlatformOption[] = [
     icon: freecodecamp,
     label: "Freecodecamp",
     value: "Freecodecamp",
-  }, // Freecodecamp red background
-
-  // Add other platforms with custom backgrounds if needed
+  },
+  {
+    icon: stackoverflow,
+    label: "Stackoverflow",
+    value: "Stackoverflow",
+  },
+  {
+    icon: youtube,
+    label: "Youtube",
+    value: "Youtube",
+  },
+  {
+    icon: stackoverflow,
+    label: "Stackoverflow",
+    value: "Stackoverflow",
+  },
+  {
+    icon: facebook,
+    label: "facebook",
+    value: "facebook",
+  },
+  {
+    icon: codeswar,
+    label: "codeswar",
+    value: "codeswar",
+  },
+  {
+    icon: codepen,
+    label: "codepen",
+    value: "codepen",
+  },
+  {
+    icon: frontendMentor,
+    label: "frontendMentor",
+    value: "frontendMentor",
+  },
+  {
+    icon: Devto,
+    label: "Dev.to",
+    value: "Dev.to",
+  },
 ];
 
 type PlatformSelectProps = {
@@ -52,14 +90,19 @@ type PlatformSelectProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
+// input field functional styling
+
+//
 const PlatformSelect: React.FC<PlatformSelectProps> = ({ value, onChange }) => (
   <>
     <TextField
+      label="platform"
       select
       value={value}
       onChange={onChange}
       variant="outlined"
       fullWidth
+      className="menu-items"
     >
       {platforms.map((platform) => (
         <MenuItem
@@ -68,11 +111,23 @@ const PlatformSelect: React.FC<PlatformSelectProps> = ({ value, onChange }) => (
           style={{
             display: "flex",
             alignItems: "center",
-            color: "white", // Ensure the text is visible
+            borderBottom: "1px solid #D9D9D9",
+            paddingTop: "12px",
+            paddingBottom: "12px",
+            paddingLeft: "12px",
+            margin: "5px",
           }}
         >
           <img src={platform.icon} alt={platform.label} />
-          <span style={{ marginLeft: "8px" }}>{platform.label}</span>
+
+          <span
+            style={{
+              marginLeft: "8px",
+              color: "black",
+            }}
+          >
+            {platform.label}
+          </span>
         </MenuItem>
       ))}
     </TextField>

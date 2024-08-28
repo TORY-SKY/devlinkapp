@@ -27,7 +27,7 @@ const Login = () => {
     successMessage: "",
   });
 
-  const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
+ const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
     setFocusedField(e.target.id);
   };
   const handleInputBlur = () => {
