@@ -3,7 +3,7 @@ import linkIcon from "../assets/images/addlinkicon.jpg";
 import { useState } from "react";
 import "../index.css";
 import Navbar from "./Navbar";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
 
 type LinkData = {
@@ -17,6 +17,14 @@ const Addlink = () => {
   const handleAddLink = () => {
     setLinks([...links, { platform: "", url: "" }]);
     setAddLink(true);
+  };
+  // Remove button
+  const handleRemoveLink = (index: number) => {
+    // copy of all the links
+    const allLinks = [...links];
+    // remove
+    const UpdatedLinks = allLinks.filter((_, i) => i !== index);
+    setLinks(UpdatedLinks);
   };
 
   const handleLinkChange = (
@@ -54,26 +62,31 @@ const Addlink = () => {
           </button>
           <div className="adding-links-struc">
             <div className="add-links-structure">
-              <div style={{}} className={`link-input-container`}>
+              <div className={`link-input-container`}>
                 {links.map((link, index) => (
-                  <div
-                    key={index}
-                    // style={{
-                    //   display: "flex",
-                    //   marginBottom: "10px",
-                    //   gap: "10px",
-                    // }}
-                  >
+                  <div key={index} className={`add-links`}>
                     <div className="description">
-                      <span>= Link #1</span>
+                      <span>= Link {index}</span>
+                      <button
+                        className="Remove-btn"
+                        onClick={() => {
+                          handleRemoveLink(index);
+                        }}
+                      >
+                        Remove
+                      </button>
                     </div>
-                    <PlatformSelect
-                      label="platform"
-                      value={link.platform}
-                      onChange={(e) =>
-                        handleLinkChange(index, "platform", e.target.value)
-                      }
-                    />
+                    <div
+                      className="platform-st"
+                      style={{ marginBottom: "12px", marginTop: "12px" }}
+                    >
+                      <PlatformSelect
+                        value={link.platform}
+                        onChange={(e) =>
+                          handleLinkChange(index, "platform", e.target.value)
+                        }
+                      />
+                    </div>
                     <TextField
                       label="Link"
                       value={link.url}
@@ -89,7 +102,7 @@ const Addlink = () => {
             </div>
             <div
               className={`add-link-btn-container ${
-                addLink ? "hide-placeholder" : ""
+                links.length < 1 ? "show-this" : "hide-this"
               }`}
             >
               <div className="pretext-container">
@@ -103,7 +116,7 @@ const Addlink = () => {
               </div>
             </div>
           </div>
-          <div className="save-button-container">
+          <div className={`save-button-container`}>
             <hr />
             <button
               className={`save-link-btn ${

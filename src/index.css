@@ -303,6 +303,7 @@ width: 100%;
   border-radius: 8px;
   background-color: transparent;
   font-weight: 600;
+  margin-bottom: 24px;
 }
 .add-link-btn:hover{
   background-color: var(--light-purple-color);
@@ -349,10 +350,35 @@ width: 100%;
 }
 
 
-.link-input-container{
+.add-links{
   background-color: var(--almost-white-color);
-  border: 1px solid red;
   padding: 15px;
+  border-radius: 12px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.description{
+  color: var(--gray-color);
+  font-weight: 700;
+  font-family: "Instrument Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.show-this{
+  display: block;
+}
+.hide-this{
+  display: none;
+}
+.description .Remove-btn{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-color);
+  font-family: "Instrument Sans", sans-serif;
+  
 }
 .menu-items{
   border: var(--lightgrey-color);

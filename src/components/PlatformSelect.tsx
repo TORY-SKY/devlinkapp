@@ -26,7 +26,7 @@ const platforms: PlatformOption[] = [
   {
     icon: github,
     label: "GitHub",
-    value: "github",
+    value: "Github",
   }, // GitHub dark background
   {
     icon: linkedin,
@@ -60,28 +60,33 @@ const platforms: PlatformOption[] = [
   },
   {
     icon: facebook,
-    label: "facebook",
-    value: "facebook",
+    label: "Facebook",
+    value: "Facebook",
   },
   {
     icon: codeswar,
-    label: "codeswar",
-    value: "codeswar",
+    label: "Codeswar",
+    value: "Codeswar",
   },
   {
     icon: codepen,
-    label: "codepen",
-    value: "codepen",
+    label: "Codepen",
+    value: "Codepen",
   },
   {
     icon: frontendMentor,
-    label: "frontendMentor",
-    value: "frontendMentor",
+    label: "Frontend Mentor",
+    value: "Frontend Mentor",
   },
   {
     icon: Devto,
     label: "Dev.to",
     value: "Dev.to",
+  },
+  {
+    icon: gitlab,
+    label: "Gitlab",
+    value: "Gitlab",
   },
 ];
 
