@@ -1,9 +1,9 @@
-import Phone from "../assets/images/Subtract.png";
+
 import linkIcon from "../assets/images/addlinkicon.jpg";
 import { useState } from "react";
 import "../index.css";
 import Navbar from "./Navbar";
-import { TextField } from "@mui/material";
+import { Skeleton, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
 
 type LinkData = {
@@ -15,8 +15,9 @@ const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
 
   const handleAddLink = () => {
-    setLinks([...links, { platform: "", url: "" }]);
-    setAddLink(true);
+    if (links.length < 3) {
+      setLinks([...links, { platform: "", url: "" }]);
+    }
   };
   // Remove button
   const handleRemoveLink = (index: number) => {
@@ -37,17 +38,57 @@ const Addlink = () => {
     setLinks(updatedLinks);
   };
   // button enabled/disabled state
-  const [addLink, setAddLink] = useState<boolean>(false);
   const [isDisbled, setIsDisbled] = useState(false);
   const checkBtnState = () => {
     setIsDisbled(!isDisbled);
   };
   return (
     <>
-      <Navbar />
+      <div className="nav-bar">
+        <Navbar />
+      </div>
       <div className="add-link-container">
         <div className="left-side">
-          <img src={Phone} alt="Phone" />
+          <div className="place-holder">
+            <div className="profile-skeleton">
+              <Skeleton
+                variant="circular"
+                width={96}
+                height={96}
+                style={{ marginBottom: "25px" }}
+              />
+              <Skeleton
+                variant="rectangular"
+                width={160}
+                height={16}
+                style={{ borderRadius: "8px" }}
+              />
+              <Skeleton
+                variant="rectangular"
+                width={72}
+                height={8}
+                style={{ borderRadius: "8px", marginTop: "13px" }}
+              />
+            </div>
+            <Skeleton
+              variant="rectangular"
+              width={237}
+              height={44}
+              style={{ borderRadius: "8px", marginBottom: "25px" }}
+            />
+            <Skeleton
+              variant="rectangular"
+              width={237}
+              height={44}
+              style={{ borderRadius: "8px", marginBottom: "25px" }}
+            />
+            <Skeleton
+              variant="rectangular"
+              width={237}
+              height={44}
+              style={{ borderRadius: "8px", marginBottom: "25px" }}
+            />
+          </div>
         </div>
         <div className="right-side">
           <div className="right-side-top">
@@ -66,7 +107,7 @@ const Addlink = () => {
                 {links.map((link, index) => (
                   <div key={index} className={`add-links`}>
                     <div className="description">
-                      <span>= Link {index}</span>
+                      <span>= Link {index + 1}</span>
                       <button
                         className="Remove-btn"
                         onClick={() => {

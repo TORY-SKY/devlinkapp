@@ -1,19 +1,10 @@
-import { useAuthState } from "react-firebase-hooks/auth";
 import "../index.css";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../common/firebase";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-
-  function AlertT() {
-    navigate("/");
-    console.log(auth);
-  }
   return (
     <div>
       <header className="navigation-bar-container">
-        <button onClick={AlertT}>See something</button>
         <nav>
           {/* logo */}
           <div className="app-logo-container">

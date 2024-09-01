@@ -3,8 +3,12 @@ import { useState, FocusEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignInput, SigninErrors } from "./Interface";
 import { toast, ToastContainer } from "react-toastify";
+import ErrorSound from "../assets/sounds/70_years_old_man_1724873644372.mp3";
+import ErrorSoundII from "../assets/sounds/Nigeria-comedy-effects-sound-copy-the-effect-of-comedy..mp3";
 
 const Login = () => {
+  const errorSound = new Audio(ErrorSound);
+  const errorSoundII = new Audio(ErrorSoundII);
   const navigate = useNavigate();
   const [showPasswrd, setShowPasswrd] = useState<boolean>(false);
   const [focusedField, setFocusedField] = useState<string>("");
@@ -12,7 +16,7 @@ const Login = () => {
   const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
-
+  const [isSoundPlaying, setIsSoundPlaying] = useState<boolean>(false);
   const [UserInput, setUserInput] = useState<SignInput>({
     email: "",
     password: "",
@@ -31,8 +35,35 @@ const Login = () => {
   const handleInputBlur = () => {
     setFocusedField("");
   };
-  //
+  //sound handling
+  useEffect(() => {
+    // Set up an event listener to reset `isSoundPlaying` when the sound ends
+    errorSoundII.addEventListener("ended", () => {
+      setIsSoundPlaying(false);
+    });
+    errorSound.addEventListener("ended", () => {
+      setIsSoundPlaying(false);
+    });
 
+    // Clean up the event listener
+    return () => {
+      errorSound.removeEventListener("ended", () => {
+        setIsSoundPlaying(false);
+        console.log(hasError);
+      });
+      errorSoundII.removeEventListener("ended", () => {
+        setIsSoundPlaying(false);
+      });
+    };
+  }, []);
+  const playErrorSound = () => {
+    if (!isSoundPlaying) {
+      errorSound.play();
+      errorSoundII.play();
+      setIsSoundPlaying(true);
+    }
+  };
+  //sound handling
   const validateInput = () => {
     let valid = true;
     const newErrors: SigninErrors = {
@@ -45,15 +76,18 @@ const Login = () => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(UserInput.email)) {
       newErrors.email = "Invalid email format.";
       valid = false;
+      playErrorSound();
     }
     // Check for empty fields
     if (!UserInput.email || !UserInput.password) {
       newErrors.general = "All fields are required.";
       valid = false;
+      playErrorSound();
     }
     if (UserInput.password === "") {
       // setHasError(true);
       newErrors.password = "Please enter your password.";
+
       valid = false;
     }
     // Return true if no errors

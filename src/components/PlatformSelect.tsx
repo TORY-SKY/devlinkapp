@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
 
 import github from "../assets/images/dropdownimg/gith.png";
@@ -107,7 +106,7 @@ const PlatformSelect: React.FC<PlatformSelectProps> = ({ value, onChange }) => (
       onChange={onChange}
       variant="outlined"
       fullWidth
-      className="menu-items"
+      className={`menu-items `}
     >
       {platforms.map((platform) => (
         <MenuItem
