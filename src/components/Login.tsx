@@ -254,8 +254,13 @@ const Login = () => {
               />{" "}
               <span>see password</span>
             </div>
-            <div className="forgot-password">
-              <Link to="/forgotPassword">forgot password</Link>
+            <div
+              className="forgot-password"
+              style={{ marginTop: "8px", marginBottom: "8px" }}
+            >
+              <Link to="/forgotPassword" style={{ textDecoration: "none" }}>
+                forgot password
+              </Link>
             </div>
             <button
               style={{ cursor: !buttonDisable ? "not-allowed" : "pointer" }}
