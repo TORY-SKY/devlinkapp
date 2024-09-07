@@ -1,4 +1,3 @@
-
 import linkIcon from "../assets/images/addlinkicon.jpg";
 import { useState } from "react";
 import "../index.css";
@@ -23,11 +22,10 @@ const Addlink = () => {
   const handleRemoveLink = (index: number) => {
     // copy of all the links
     const allLinks = [...links];
-    // remove
+    // remove added 
     const UpdatedLinks = allLinks.filter((_, i) => i !== index);
     setLinks(UpdatedLinks);
   };
-
   const handleLinkChange = (
     index: number,
     key: keyof LinkData,
@@ -42,6 +40,7 @@ const Addlink = () => {
   const checkBtnState = () => {
     setIsDisbled(!isDisbled);
   };
+
   return (
     <>
       <div className="nav-bar">
