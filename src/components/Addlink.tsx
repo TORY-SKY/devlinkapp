@@ -43,9 +43,7 @@ const Addlink = () => {
     if (!updatedLinks) {
       alert("hello world");
       setIsDisbled(true);
-      console.log(
-        "ksjdksjdksjdksjdkjdijhsdjjfjldfjok fjefhi hj jke hkuahlr bb hhoj fj fe"
-      );
+      console.log("display this");
     }
   };
   return (
