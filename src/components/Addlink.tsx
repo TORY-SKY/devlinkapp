@@ -12,7 +12,7 @@ type LinkData = {
 
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
-
+  // adding link boxes (max 3)
   const handleAddLink = () => {
     if (links.length < 3) {
       setLinks([...links, { platform: "", url: "" }]);
@@ -22,7 +22,7 @@ const Addlink = () => {
   const handleRemoveLink = (index: number) => {
     // copy of all the links
     const allLinks = [...links];
-    // remove added 
+    // remove added
     const UpdatedLinks = allLinks.filter((_, i) => i !== index);
     setLinks(UpdatedLinks);
   };
@@ -37,10 +37,17 @@ const Addlink = () => {
   };
   // button enabled/disabled state
   const [isDisbled, setIsDisbled] = useState(false);
-  const checkBtnState = () => {
-    setIsDisbled(!isDisbled);
-  };
 
+  const CheckInputLink = () => {
+    const updatedLinks = [...links];
+    if (!updatedLinks) {
+      alert("hello world");
+      setIsDisbled(true);
+      console.log(
+        "ksjdksjdksjdksjdkjdijhsdjjfjldfjok fjefhi hj jke hkuahlr bb hhoj fj fe"
+      );
+    }
+  };
   return (
     <>
       <div className="nav-bar">
@@ -162,8 +169,7 @@ const Addlink = () => {
               className={`save-link-btn ${
                 isDisbled ? "button-enabled" : "button-disabled"
               }`}
-              onClick={checkBtnState}
-              disabled={isDisbled}
+              onClick={CheckInputLink}
             >
               Save
             </button>

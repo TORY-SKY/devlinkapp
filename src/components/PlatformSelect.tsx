@@ -53,11 +53,6 @@ const platforms: PlatformOption[] = [
     value: "Youtube",
   },
   {
-    icon: stackoverflow,
-    label: "Stackoverflow",
-    value: "Stackoverflow",
-  },
-  {
     icon: facebook,
     label: "Facebook",
     value: "Facebook",
