@@ -4,16 +4,15 @@ import "../index.css";
 import Navbar from "./Navbar";
 import { Skeleton, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
-import { LinkData } from "../common/Interfaces";
 
-// type LinkData = {
-//   platform: string;
-//   url: string;
-// };
+type LinkData = {
+  platform: string;
+  url: string;
+};
 
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
-  // adding link boxes (max 3)
+
   const handleAddLink = () => {
     if (links.length < 3) {
       setLinks([...links, { platform: "", url: "" }]);
@@ -23,7 +22,7 @@ const Addlink = () => {
   const handleRemoveLink = (index: number) => {
     // copy of all the links
     const allLinks = [...links];
-    // remove added
+    // remove added 
     const UpdatedLinks = allLinks.filter((_, i) => i !== index);
     setLinks(UpdatedLinks);
   };
@@ -38,15 +37,10 @@ const Addlink = () => {
   };
   // button enabled/disabled state
   const [isDisbled, setIsDisbled] = useState(false);
-
-  const CheckInputLink = () => {
-    const updatedLinks = [...links];
-    if (!updatedLinks) {
-      alert("hello world");
-      setIsDisbled(true);
-      console.log("display this");
-    }
+  const checkBtnState = () => {
+    setIsDisbled(!isDisbled);
   };
+
   return (
     <>
       <div className="nav-bar">
@@ -168,7 +162,8 @@ const Addlink = () => {
               className={`save-link-btn ${
                 isDisbled ? "button-enabled" : "button-disabled"
               }`}
-              onClick={CheckInputLink}
+              onClick={checkBtnState}
+              disabled={isDisbled}
             >
               Save
             </button>

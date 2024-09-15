@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
-import { LinkData } from "../common/Interfaces";
-import Addlink from "./Addlink";
-import { useLinkContext } from "../common/LinkContextAPI";
 
-// type LinkData = {
-//   platform: string;
-//   url: string;
-// };
-const platform = [
-  { name: "Facebook", color: "#3b5998" },
-  { name: "Twitter", color: "#1da1f2" },
-];
+type LinkData = {
+  platform: string;
+  url: string;
+};
 
 const AddLinkComponent: React.FC = () => {
-  const { addLink } = useLinkContext();
-  const [platform, setPlatform = useState("")];
-  const [url, setUrl] = useState("");
-  const [idCounter, setIdCounter] = useState("");
+  const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
+
+  const handleAddLink = () => {
+    setLinks([...links, { platform: "", url: "" }]);
+  };
+
+  const handleLinkChange = (
+    index: number,
+    key: keyof LinkData,
+    value: string
+  ) => {
+    const updatedLinks = [...links];
+    updatedLinks[index][key] = value;
+    setLinks(updatedLinks);
+  };
 
   return (
     <div

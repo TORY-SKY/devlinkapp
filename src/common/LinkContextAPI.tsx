@@ -21,6 +21,9 @@ export const LinkProvider = ({
   const addLink = (linkss: LinkData) => {
     setDevLinks((prev) => [...prev, linkss]);
   };
+  const removeLink = (linkss: LinkData)=>{
+    linkss.filter((_, i))
+  }
 
   return (
     <LinkContext.Provider value={{ links, addLink }}>
