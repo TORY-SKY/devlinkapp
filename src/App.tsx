@@ -26,7 +26,7 @@ function App() {
     {
       path: "/login",
       element: <Login />,
-      errorElement: "error",
+      errorElement: <AuthProtection Component={ErrorPage} />,
     },
     {
       path: "/signup",

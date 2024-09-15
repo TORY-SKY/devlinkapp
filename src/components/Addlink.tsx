@@ -4,11 +4,12 @@ import "../index.css";
 import Navbar from "./Navbar";
 import { Skeleton, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
+import { LinkData } from "../common/Interfaces";
 
-type LinkData = {
-  platform: string;
-  url: string;
-};
+// type LinkData = {
+//   platform: string;
+//   url: string;
+// };
 
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
