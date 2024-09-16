@@ -1,11 +1,12 @@
 import { createContext, useState, useContext, ReactNode } from "react";
-import { LinkData } from "./Interfaces";
+import { LinkDataContext, LinkData } from "./Interfaces";
 
 // Define the type for the image data
 interface LinkContext {
   links: LinkData[];
   addLink: (link: LinkData) => void;
 }
+
 // Define the type for the context
 
 const LinkContext = createContext<LinkContext | undefined>(undefined);
@@ -34,7 +35,7 @@ export const LinkProvider = ({
 export const useLinkContext = () => {
   const context = useContext(LinkContext);
   if (!context) {
-    throw new Error("useLinkContext must be used within an ImageProvider");
+    throw new Error("useLinkContext must be used within an LinkProvider");
   }
   return context;
 };

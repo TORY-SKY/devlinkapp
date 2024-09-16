@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import ErrorPage from "./components/ErrorPage";
+import ErrorPage from "./ErrorPage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Addlink from "./components/Addlink";
@@ -31,27 +31,27 @@ function App() {
     {
       path: "/signup",
       element: <Signup />,
-      errorElement: "error reaching this page",
+      errorElement: <ErrorPage />,
     },
     {
       path: "/addlink",
       element: <AuthProtection Component={Addlink} />,
-      errorElement: "error reaching this page",
+      errorElement: <ErrorPage />,
     },
     {
       path: "/profile",
       element: <AuthProtection Component={ProfileDetails} />,
-      errorElement: "error reaching profile",
+      errorElement: <ErrorPage />,
     },
     {
       path: "/forgotpassword",
       element: <ForgotPassword />,
-      errorElement: "error reaching profile",
+      errorElement: <ErrorPage />,
     },
     {
       path: "/test",
       element: <AddLinkComponent />,
-      errorElement: "error reaching profile",
+      errorElement: <ErrorPage />,
     },
   ]);
   return (
