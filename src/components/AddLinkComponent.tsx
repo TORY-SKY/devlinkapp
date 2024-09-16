@@ -6,7 +6,6 @@ type LinkData = {
   platform: string;
   url: string;
 };
-
 const AddLinkComponent: React.FC = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
 

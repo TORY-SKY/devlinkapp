@@ -5,12 +5,12 @@ import { LinkData } from "./Interfaces";
 interface LinkContext {
   links: LinkData[];
   addLink: (link: LinkData) => void;
-  removeLink: (link: LinkData) => void;
 }
 // Define the type for the context
 
 const LinkContext = createContext<LinkContext | undefined>(undefined);
 
+// firestore data
 // Create a provider component
 export const LinkProvider = ({
   children,
@@ -22,10 +22,9 @@ export const LinkProvider = ({
   const addLink = (linkss: LinkData) => {
     setDevLinks((prev) => [...prev, linkss]);
   };
-  const removeLink = (linkss: LinkData) => {};
 
   return (
-    <LinkContext.Provider value={{ links, addLink, removeLink }}>
+    <LinkContext.Provider value={{ links, addLink }}>
       {children}
     </LinkContext.Provider>
   );
