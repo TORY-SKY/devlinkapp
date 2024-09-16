@@ -22,6 +22,7 @@ export const LinkProvider = ({
 
   const addLink = (linkss: LinkData) => {
     setDevLinks((prev) => [...prev, linkss]);
+    console.log(linkss);
   };
 
   return (
