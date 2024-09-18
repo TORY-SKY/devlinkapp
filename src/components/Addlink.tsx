@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import { Skeleton, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
 import { useLinkContext } from "../common/LinkContextAPI";
-import { LinkData } from "../common/Interfaces";
+import { LinkData } from '../common/Interfaces';
 
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
@@ -42,8 +42,7 @@ const Addlink = () => {
   const { addLink } = useLinkContext();
   const SaveLink = () => {
     setIsDisbled(true);
-    console.log(links);
-    // error down here 
+    // error down here
     addLink(links);
   };
 

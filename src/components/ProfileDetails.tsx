@@ -15,29 +15,36 @@ const ProfileDetails = () => {
       <div className="linkcomponents">
         {links.map((link, key) => (
           <table key={key}>
-            <tr>
-              <th>Links</th>
-            </tr>
-            <tr>
-              <td>
-                {link.url != "" ? (
-                  <a href={link.url}>{link.url} link</a>
-                ) : (
-                  <div>
-                    <Skeleton
-                      variant="rectangular"
-                      width={237}
-                      height={44}
-                      style={{ borderRadius: "8px", marginBottom: "25px" }}
-                    />
-                    <a href={link.url}>
-                      {link.url} {link.platform}
-                    </a>
-                  </div>
-                )}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>Links</th>
+              </tr>
+              <tr>
+                <td>
+                  {link.url != "" ? (
+                    <a href={link.url}>{link.url} link</a>
+                  ) : (
+                    <div>
+                      <Skeleton
+                        variant="rectangular"
+                        width={237}
+                        height={44}
+                        style={{ borderRadius: "8px", marginBottom: "25px" }}
+                      />
+                      <a href={link.url}>
+                        {link.url} {link.platform}
+                      </a>
+                    </div>
+                  )}
+                </td>
+              </tr>
+            </tbody>
           </table>
+        ))}
+      </div>
+      <div>
+        {links.map((li) => (
+          <h1>{li.platform}</h1>
         ))}
       </div>
       <button onClick={Navigate}>back home</button>

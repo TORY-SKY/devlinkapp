@@ -4,7 +4,7 @@ import { LinkDataContext, LinkData } from "./Interfaces";
 // Define the type for the image data
 interface LinkContext {
   links: LinkData[];
-  addLink: (link: LinkData) => void;
+  addLink: (links: LinkData) => void;
 }
 
 // Define the type for the context
@@ -20,9 +20,9 @@ export const LinkProvider = ({
 }): JSX.Element => {
   const [links, setDevLinks] = useState<LinkData[]>([]);
 
-  const addLink = (linkss: LinkData) => {
-    setDevLinks((prev) => [...prev, linkss]);
-    console.log(linkss);
+  const addLink = (links: LinkData) => {
+    setDevLinks((prev) => [...prev, links]);
+    console.log(links);
   };
 
   return (
