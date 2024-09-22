@@ -12,6 +12,7 @@ import freecodecamp from "../assets/images/dropdownimg/freecodecamp.png";
 import gitlab from "../assets/images/dropdownimg/gitlab.svg";
 import stackoverflow from "../assets/images/dropdownimg/stackoverflow.png";
 import youtube from "../assets/images/dropdownimg/yout.png";
+import w3School from "../assets/images/dropdownimg/w3schools.svg";
 
 // Import other icons as needed
 
@@ -82,8 +83,13 @@ const platforms: PlatformOption[] = [
     label: "Gitlab",
     value: "Gitlab",
   },
+  {
+    icon: w3School,
+    label: "w3School",
+    value: "w3School",
+  },
 ];
-
+// w3School
 type PlatformSelectProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -117,7 +123,11 @@ const PlatformSelect: React.FC<PlatformSelectProps> = ({ value, onChange }) => (
             margin: "5px",
           }}
         >
-          <img src={platform.icon} alt={platform.label} />
+          <img
+            src={platform.icon}
+            alt={platform.label}
+            style={{ width: "18px", height: "18px" }}
+          />
 
           <span
             style={{
