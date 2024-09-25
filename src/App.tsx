@@ -8,6 +8,7 @@ import AuthProtection from "./AuthProtection";
 import ProfileDetails from "./components/ProfileDetails";
 import ForgotPassword from "./components/ForgotPassword";
 import AddLinkComponent from "./components/AddLinkComponent";
+import LinkSaver from "./Test";
 
 function App() {
   const router = createBrowserRouter([
@@ -50,7 +51,7 @@ function App() {
     },
     {
       path: "/test",
-      element: <AddLinkComponent />,
+      element: <LinkSaver />,
       errorElement: <ErrorPage />,
     },
   ]);
