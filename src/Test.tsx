@@ -32,6 +32,7 @@ const LinkSaver: React.FC = () => {
       // Revert state if there's an error
       setLinks(previousLinks);
       setError("Failed to save link!");
+      console.log(linkData);
     }
   };
 
