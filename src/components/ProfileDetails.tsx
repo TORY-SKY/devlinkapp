@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLinkContext } from "../common/LinkContextAPI";
 import { Skeleton } from "@mui/material";
 
+
 const ProfileDetails = () => {
   const navigate = useNavigate();
   function Navigate() {

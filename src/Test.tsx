@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./common/firebase.ts";
 
 interface LinkData {
