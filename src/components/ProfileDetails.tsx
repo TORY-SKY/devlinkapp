@@ -1,21 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { useLinkContext } from "../common/LinkContextAPI";
 import { Skeleton } from "@mui/material";
-
+import Navbar from "./Navbar";
 
 const ProfileDetails = () => {
   const navigate = useNavigate();
   function Navigate() {
     navigate("/addLink");
   }
-  const { links } = useLinkContext();
+  const { linkss } = useLinkContext();
 
   return (
     <div>
+      <Navbar />
       <h1>Profile Details</h1>
       <div className="linkcomponents">
-        {links.map((link, key) => (
-          <table key={key}>
+        {linkss.map((link) => (
+          <table key={link.id}>
             <tr>
               <th>Links</th>
             </tr>
@@ -42,10 +43,10 @@ const ProfileDetails = () => {
         ))}
       </div>
       <div>
-        {links.map((li, key) => (
-          <div key={key}>
+        {linkss.map((li) => (
+          <div key={li.id}>
             <h1>{li.platform}</h1>
-            <h1>{li.url}, it should be here somewhere bro</h1>
+            <h1>{li.url}</h1>
           </div>
         ))}
       </div>

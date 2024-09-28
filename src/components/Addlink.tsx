@@ -5,14 +5,17 @@ import Navbar from "./Navbar";
 import { Skeleton, TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
 import { useLinkContext } from "../common/LinkContextAPI";
-import { LinkData } from '../common/Interfaces';
+import { LinkData } from "../common/Interfaces";
+import FetchedLinks from "../common/FetchedLinks";
 
 const Addlink = () => {
-  const [links, setLinks] = useState<LinkData[]>([{ platform: "", url: "" }]);
+  const [links, setLinks] = useState<LinkData[]>([
+    { platform: "", url: "", id: "" },
+  ]);
 
   const handleAddLink = () => {
     if (links.length < 3) {
-      setLinks([...links, { platform: "", url: "" }]);
+      setLinks([...links, { platform: "", url: "", id: "" }]);
     }
   };
   // Remove button
@@ -40,13 +43,13 @@ const Addlink = () => {
   // button enabled/disabled state
   const [isDisbled, setIsDisbled] = useState<boolean>(true);
   const { addLink } = useLinkContext();
+
   const SaveLink = () => {
     setIsDisbled(true);
     // error down here
     addLink(links);
+    setLinks([{ platform: "", url: "", id: "" }]);
   };
-
-  // save btn
 
   return (
     <>
@@ -65,9 +68,9 @@ const Addlink = () => {
               />
               <Skeleton
                 variant="rectangular"
-                width={160}
-                height={16}
-                style={{ borderRadius: "8px" }}
+                width={237}
+                height={20}
+                style={{ marginBottom: "2px" }}
               />
               <Skeleton
                 variant="rectangular"
@@ -76,24 +79,9 @@ const Addlink = () => {
                 style={{ borderRadius: "8px", marginTop: "13px" }}
               />
             </div>
-            <Skeleton
-              variant="rectangular"
-              width={237}
-              height={44}
-              style={{ borderRadius: "8px", marginBottom: "25px" }}
-            />
-            <Skeleton
-              variant="rectangular"
-              width={237}
-              height={44}
-              style={{ borderRadius: "8px", marginBottom: "25px" }}
-            />
-            <Skeleton
-              variant="rectangular"
-              width={237}
-              height={44}
-              style={{ borderRadius: "8px", marginBottom: "25px" }}
-            />
+            <div className="real-time-data">
+              <FetchedLinks />
+            </div>
           </div>
         </div>
         <div className="right-side">

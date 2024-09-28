@@ -1,5 +1,6 @@
 // interface for individual link
 export type LinkData = {
+  id: string;
   platform: string;
   url: string;
 };
@@ -10,6 +11,6 @@ export type LinkDataContext = {
 };
 
 export interface LinkContext {
-  links: LinkData[];
+  linkss: LinkData[];
   addLink: (link: LinkData) => void;
 }
