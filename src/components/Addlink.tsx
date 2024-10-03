@@ -7,7 +7,7 @@ import PlatformSelect from "./PlatformSelect";
 import { useLinkContext } from "../common/LinkContextAPI";
 import { LinkData } from "../common/Interfaces";
 import FetchedLinks from "../common/FetchedLinks";
-
+import "../common/cssFile/links.css";
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([
     { platform: "", url: "", id: "" },

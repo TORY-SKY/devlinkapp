@@ -1,30 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
 :root {
-  --purple-color: #633CFF;
-  --fade-lightpurple-color: #BEADFF;
-  --light-purple-color: #EFEBFF;
+  --purple-color: #633cff;
+  --fade-lightpurple-color: #beadff;
+  --light-purple-color: #efebff;
   --dark-color: #333333;
   --gray-color: #737373;
-  --lightgrey-color: #D9D9D9;
-  --almost-white-color: #FAFAFA;
-  --white-color: #FFFFFF;
+  --lightgrey-color: #d9d9d9;
+  --almost-white-color: #fafafa;
+  --white-color: #ffffff;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Instrument Sans", sans-serif;
   font-size: 16px;
   /* outline: 1px solid red; */
-
-
 }
-body{
+body {
   /* background-color: var(--almost-white-color); */
   /* margin: 0 clamp(0.5rem, 3vw, 1rem); */
 }
-.navigation-bar-container nav{
+.navigation-bar-container nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,91 +33,88 @@ body{
   color: var(--gray-color);
   border-radius: 12px;
 }
-.app-logo-container{
+.app-logo-container {
   display: flex;
   align-items: center;
   gap: 2px;
 }
-.links-container{
+.links-container {
   gap: 0;
   padding: 0;
   margin: 0;
 }
-.links-container .links{
+.links-container .links {
   display: flex;
   gap: 8px;
   padding: 11px 20px 11px 20px;
 }
- .preview-btn{
-padding: 11px 20px 11px 20px;
-gap: 1px;
-border-radius: 8px;
-opacity: 0px;
-display: flex;
-cursor: pointer;
+.preview-btn {
+  padding: 11px 20px 11px 20px;
+  gap: 1px;
+  border-radius: 8px;
+  opacity: 0px;
+  display: flex;
+  cursor: pointer;
 
   /* margin-right: clamp(0.5rem, 3vw, 14rem); */
 }
-.preview-btn:hover{
+.preview-btn:hover {
   background-color: var(--light-purple-color);
   font-weight: 400;
 }
 
-.links-container .links:hover{
+.links-container .links:hover {
   color: var(--purple-color);
   background-color: var(--light-purple-color);
   font-weight: 400;
   border-radius: 8px;
-  
 }
-.preview-btn{
+.preview-btn {
   border: 1px solid var(--purple-color);
   background-color: var(--white-color);
-
 }
-.appName{
+.appName {
   /* display: flex !important; */
   font-size: 2rem;
   color: var(--dark-color);
   font-weight: 600;
 }
 
-.logo-text{
+.logo-text {
   display: none;
 }
 
-
 /* LOGIN FORM PHONE SCREEN STYLING */
-.login-form-container{ 
+.login-form-container {
   margin: auto 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.login-form-container .headerr{
+.login-form-container .headerr {
   margin-top: 30px;
 }
-.login-form{
+.login-form {
   display: flex;
   flex-direction: column;
   margin: 64px 0;
 }
-.login-form .login-text{
+.login-form .login-text {
   font-size: 24px;
   font-family: "Instrument Sans", sans-serif;
   font-weight: 700;
   line-height: 36px;
   margin-bottom: 8px;
-  
 }
-.login-form .body-m, .body-m{
+.login-form .body-m,
+.body-m {
   font-size: 16px;
   font-weight: 400;
   font-family: "Instrument Sans", sans-serif;
   line-height: 24px;
   color: var(--gray-color);
 }
-.login-form .body-s{
+.login-form .body-s {
   font-size: 12px;
   font-weight: 400;
   font-family: "Instrument Sans", sans-serif;
@@ -128,16 +123,16 @@ cursor: pointer;
   margin-bottom: 20px;
 }
 /* login button disabled */
-.login-btn-disabled{
+.login-btn-disabled {
   background-color: var(--fade-lightpurple-color) !important;
 }
 /* login button disabled */
 
-.form-input-container{
+.form-input-container {
   margin-top: 40px;
 }
 
-.login-form label{
+.login-form label {
   font-family: "Instrument Sans", sans-serif;
   font-size: 12px;
   line-height: 18px;
@@ -145,8 +140,7 @@ cursor: pointer;
   color: var(--dark-color);
 }
 
-
-.form-input-container .input{
+.form-input-container .input {
   position: relative;
   border: 1px solid var(--lightgrey-color);
   border-radius: 8px;
@@ -157,26 +151,24 @@ cursor: pointer;
   align-items: center;
   /* gap: 12px; */
   margin-top: 4px;
-
 }
-.input-svg{
+.input-svg {
   display: flex;
   align-items: center;
   background-color: 12px solid purple;
 }
 /* SVGs for the input fields */
-.form-input-container .input svg{
+.form-input-container .input svg {
   margin-right: clamp(12px, 1vw, 12.5px);
 }
 
 /* when input field is focused */
-.focused{
+.focused {
   border: 1px solid var(--purple-color) !important;
   box-shadow: 0 0 15px #633cff95;
-
 }
 /* this was added so that the input field error message won't take any space when there is no error to display */
-.show-error-message{
+.show-error-message {
   display: flex;
   align-items: center;
   justify-content: right;
@@ -186,17 +178,14 @@ cursor: pointer;
   font-size: clamp(10px, 1vw, 12px);
   color: red;
   font-weight: 400;
-  
 }
 
-.hide-error-message{
+.hide-error-message {
   display: none !important;
 }
 /* this was added so that the input field error message won't take any space when there is no error to display */
 
-
-
-.form-input-container .input input{
+.form-input-container .input input {
   width: 100%;
   height: 100%;
   font-size: 16px;
@@ -209,7 +198,7 @@ cursor: pointer;
   /* margin-right: 4px; */
 }
 
-.input-error-message{
+.input-error-message {
   margin-left: 0;
   padding-left: 0;
   font-size: clamp(10px, 1vw, 12px);
@@ -218,15 +207,14 @@ cursor: pointer;
   display: flex;
 }
 
- .input.error {
+.input.error {
   border: 1px solid red !important; /* Adjust the thickness and style as needed */
   transition: all ease-in-out;
-
 }
-.input-svg{
-width: 100%;
+.input-svg {
+  width: 100%;
 }
-.form-input-container .login-btn{
+.form-input-container .login-btn {
   width: 100%;
   border-radius: 8px;
   padding: 11px 27px 11px 27px;
@@ -240,31 +228,27 @@ width: 100%;
   cursor: pointer;
 }
 /* login button */
-.link-to-create-account{
+.link-to-create-account {
   text-align: center;
   font-family: "Instrument Sans", sans-serif;
 }
-.link-to-create-account a{
+.link-to-create-account a {
   text-decoration: none;
 }
 
-
-
 /* add link page styling */
 
-.home-page{
+.home-page {
   background-color: var(--almost-white-color);
   padding: 16px 16px;
-
-
 }
-.add-link-container{
+.add-link-container {
   margin-top: 16px;
   display: grid;
   grid-template-columns: 1fr, 1fr;
   background-color: var(--almost-white-color);
 }
-.right-side{
+.right-side {
   position: relative;
   margin-right: 24px;
   margin-top: 24px;
@@ -276,28 +260,28 @@ width: 100%;
   justify-content: center; */
   padding: 12px;
 }
-.hr{
+.hr {
   border: 12px solid green;
 }
-.add-edit-remove-link{
+.add-edit-remove-link {
   text-align: center;
 }
-.add-link-btn-container{
+.add-link-btn-container {
   background-color: var(--almost-white-color);
   border-radius: 12px;
   margin-top: 24px;
   text-align: center;
   padding: 8px;
 }
-.right-side .right-side-top{
+.right-side .right-side-top {
   margin-bottom: 40px;
 }
-.header-text{
+.header-text {
   font-size: 24px;
   font-weight: 700;
   line-height: 36px;
 }
-.add-link-btn{
+.add-link-btn {
   width: 100%;
   padding: 11px 27px 11px 27px;
   color: var(--purple-color);
@@ -307,19 +291,18 @@ width: 100%;
   font-weight: 600;
   cursor: pointer;
 }
-.add-link-btn:hover{
+.add-link-btn:hover {
   background-color: var(--light-purple-color);
-
 }
-.button-enabled{
+.button-enabled {
   background-color: var(--purple-color);
   cursor: pointer;
 }
-.button-disabled{
+.button-disabled {
   background-color: var(--fade-lightpurple-color);
   cursor: progress;
 }
-.save-link-btn{
+.save-link-btn {
   padding: 11px 27px 11px 27px;
   color: var(--white-color);
   gap: 8px;
@@ -335,12 +318,12 @@ width: 100%;
   border: none;
   outline: none;
 }
-.add-link-container img{
+.add-link-container img {
   width: clamp(1rem 3vw 4rem);
   height: auto;
 }
 /* sign up succcessful modal */
-.signup-successful-modal{
+.signup-successful-modal {
   position: absolute;
   background-color: var(--white-color);
   border-radius: 8px;
@@ -348,19 +331,18 @@ width: 100%;
   padding: 20px;
 }
 /* Add link componet */
-.hide-placeholder{
+.hide-placeholder {
   display: none;
 }
 
-
-.add-links{
+.add-links {
   background-color: var(--almost-white-color);
   padding: 15px;
   border-radius: 12px;
   margin-top: 24px;
   margin-bottom: 24px;
 }
-.description{
+.description {
   color: var(--gray-color);
   font-weight: 700;
   font-family: "Instrument Sans", sans-serif;
@@ -369,79 +351,75 @@ width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.show-this{
+.show-this {
   display: block;
 }
-.hide-this{
+.hide-this {
   display: none;
 }
-.description .Remove-btn{
+.description .Remove-btn {
   background-color: transparent;
   border: none;
   cursor: pointer;
   color: var(--gray-color);
   font-family: "Instrument Sans", sans-serif;
-  
 }
-.menu-items{
+.menu-items {
   border: var(--lightgrey-color);
   border-radius: 8px;
 }
-.menu-items .focused{
+.menu-items .focused {
   box-shadow: 0 0 15px #633cff95;
   border: var(--purple-color);
-
 }
-.place-holder{
+.place-holder {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 12px;
 }
-.profile-skeleton{
+.profile-skeleton {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 56px;
 }
-.skeleton-s{
+.skeleton-s {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
-.nav-bar{
-
+.nav-bar {
 }
 /* Add link component styinging -end */
-@media (min-width: 769px){
-  .logo-text{
+@media (min-width: 769px) {
+  .logo-text {
     display: flex;
   }
-  .right-side{
+  .right-side {
     padding: 40px;
   }
-  .add-link-container{
+  .add-link-container {
     display: grid;
     grid-template-columns: 40% 60%;
   }
-  .header-text{
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 48px;
-  text-align: left;
-  }
-  .add-edit-remove-link{
+  .header-text {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
     text-align: left;
   }
-  .pretext-container{
+  .add-edit-remove-link {
+    text-align: left;
+  }
+  .pretext-container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 70px;
   }
-  .left-side{
+  .left-side {
     /* position: fixed; */
     background-color: var(--white-color);
     margin-top: 24px;
@@ -456,67 +434,80 @@ width: 100%;
     background-size: contain;
     background-repeat: no-repeat;
   }
-  
-  .save-button-container{
+
+  .save-button-container {
     margin-top: 40px;
     margin-bottom: 24px;
   }
-  .save-link-btn{
+  .save-link-btn {
     display: flex;
     max-width: 91px;
     height: 46px;
     float: right;
   }
-  .pretext-container img{
+  .pretext-container img {
     margin-bottom: 40px;
   }
-  .header-text{
+  .header-text {
     margin-bottom: 24px;
   }
 
-
-/* LOGIN FORM */
-/* header */
-.app-logo-container{
-  display: flex;
-  align-items: center;
-  justify-content: center !important;
-}
-.LOGIN-CONTAINER{
-  background-color: var(--almost-white-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* .login-form-h{
-} */
-.the-login-form{
-  background-color: var(--white-color);
-  padding: 20px;
-  border-radius: 8px;
-
-}
-
-.form-input-container .input{
-  width: 396px;
-}
-  /* SIGN UP PAGE RESPONSIVENESS */
-  .SIGN-UP{
+  /* LOGIN FORM */
+  /* header */
+  .app-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+  }
+  .LOGIN-CONTAINER {
     background-color: var(--almost-white-color);
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .login-form-container{
+  /* .login-form-h{
+} */
+  .the-login-form {
+    background-color: var(--white-color);
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .form-input-container .input {
+    width: 396px;
+  }
+  /* SIGN UP PAGE RESPONSIVENESS */
+  .SIGN-UP {
+    background-color: var(--almost-white-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-form-container {
     /* margin-left: 470px;
     margin-right: 470px; */
     /* margin: auto 450px; */
   }
-  .sign-up-form-container{
+  .sign-up-form-container {
     background-color: var(--white-color);
     padding: 20px;
     border-radius: 8px;
-
-
   }
+}
+
+/* google signin button */
+.google-singin-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  cursor: pointer;
+  background-color: white;
+  color: var(--gray-color);
+  font-weight: 400;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  border: 1.5px solid var(--lightgrey-color);
+  width: 100%;
 }

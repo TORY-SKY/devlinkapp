@@ -1,0 +1,24 @@
+
+.real-time-data {
+  width: 100%;
+}
+.user-added-links-container {
+  width: 100%;
+
+  /* justify-content: center; */
+}
+.clickable {
+  display: flex;
+  background-color: black;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  border-radius: 8px;
+}
+.user-added-links-container a {
+  color: white;
+  text-decoration: none;
+}
+* {
+  /* outline: 1px solid red; */
+}
