@@ -9,6 +9,8 @@ const PreloadSkeleton = () => {
         height={44}
         style={{ borderRadius: "8px", marginBottom: "25px" }}
       />
+
+      
     </div>
   );
 };

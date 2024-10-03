@@ -92,6 +92,7 @@ const platforms: PlatformOption[] = [
 // w3School
 type PlatformSelectProps = {
   value: string;
+  icon: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
