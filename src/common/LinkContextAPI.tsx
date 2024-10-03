@@ -6,7 +6,7 @@ import {
   useEffect,
 } from "react";
 import { LinkData } from "./Interfaces";
-import { collection, addDoc, getDocs, doc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 // Define the type for the image data

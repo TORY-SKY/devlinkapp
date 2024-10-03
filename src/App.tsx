@@ -7,9 +7,8 @@ import Addlink from "./components/Addlink";
 import AuthProtection from "./AuthProtection";
 import ProfileDetails from "./components/ProfileDetails";
 import ForgotPassword from "./components/ForgotPassword";
-import AddLinkComponent from "./components/AddLinkComponent";
 import LinkSaver from "./Test";
-import { UserProvider } from './common/LoginContext';
+import { UserProvider } from "./common/LoginContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -60,7 +59,7 @@ function App() {
     <>
       <div>
         <UserProvider>
-        <RouterProvider router={router} />
+          <RouterProvider router={router} />
         </UserProvider>
       </div>
     </>
