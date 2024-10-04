@@ -8,6 +8,12 @@ import { useLinkContext } from "../common/LinkContextAPI";
 import { LinkData } from "../common/Interfaces";
 import FetchedLinks from "../common/FetchedLinks";
 import "../common/cssFile/links.css";
+import { useUser } from "../common/LoginContext";
+import {
+  UserDisplayEmail,
+  UserDisplayName,
+  UserSkeleton,
+} from "../common/Skeloton";
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([
     { platform: "", url: "", id: "" },
@@ -50,7 +56,7 @@ const Addlink = () => {
     addLink(links);
     setLinks([{ platform: "", url: "", id: "" }]);
   };
-
+  const { theUser } = useUser();
   return (
     <>
       <div className="nav-bar">
@@ -60,24 +66,46 @@ const Addlink = () => {
         <div className="left-side">
           <div className="place-holder">
             <div className="profile-skeleton">
-              <Skeleton
-                variant="circular"
-                width={96}
-                height={96}
-                style={{ marginBottom: "25px" }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width={237}
-                height={20}
-                style={{ marginBottom: "2px" }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width={72}
-                height={8}
-                style={{ borderRadius: "8px", marginTop: "13px" }}
-              />
+              <div
+                style={{
+                  borderRadius: "50px",
+                  overflow: "hidden",
+                  width: "96px",
+                  height: "96px",
+                }}
+              >
+                {theUser?.photoURL ? (
+                  <img src={theUser.photoURL} alt="user display picture" />
+                ) : (
+                  <UserSkeleton />
+                )}
+              </div>
+
+              <div>
+                {theUser?.displayName ? (
+                  <h3
+                    className="user display picture"
+                    style={{ fontSize: "1.5rem" }}
+                  >
+                    {theUser.displayName}
+                  </h3>
+                ) : (
+                  <UserDisplayName />
+                )}
+              </div>
+
+              <div>
+                {theUser?.email ? (
+                  <p
+                    className="user display picture"
+                    style={{ fontSize: "0.9rem", color: "#737373" }}
+                  >
+                    {theUser.email}
+                  </p>
+                ) : (
+                  <UserDisplayEmail />
+                )}
+              </div>
             </div>
             <div className="real-time-data">
               <FetchedLinks />

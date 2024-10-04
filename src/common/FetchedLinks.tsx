@@ -11,9 +11,11 @@ const FetchedLinks = () => {
             {/* Fallback to skeleton if platform is missing */}
             {link.platform ? (
               <div className="clickable">
-                <a href={link.url}>{link.platform}</a>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  {link.platform}
+                </a>
                 <div className="a">
-                  <a href={link.url}>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
                     <svg
                       width="12"
                       height="12"
