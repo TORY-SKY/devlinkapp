@@ -2,7 +2,7 @@ import linkIcon from "../assets/images/addlinkicon.jpg";
 import { useState } from "react";
 import "../index.css";
 import Navbar from "./Navbar";
-import { Skeleton, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import PlatformSelect from "./PlatformSelect";
 import { useLinkContext } from "../common/LinkContextAPI";
 import { LinkData } from "../common/Interfaces";
