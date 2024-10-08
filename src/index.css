@@ -97,8 +97,9 @@ body {
 .login-form {
   display: flex;
   flex-direction: column;
-  margin: 64px 0;
+  /* margin: 64px 64px 0; */
 }
+
 .login-form .login-text {
   font-size: 24px;
   font-family: "Instrument Sans", sans-serif;
@@ -422,19 +423,22 @@ body {
     padding: 70px;
   }
   .left-side {
-    /* position: fixed; */
+    position: relative;
     background-color: var(--white-color);
     margin-top: 24px;
     margin-right: 24px;
     margin-left: 24px;
     /* padding: 126.5px; */
     display: flex;
-    align-items: center;
+    /* align-items: center; */
+    border: 1px solid red;
+    padding: 12px;
+    overflow-y: scroll;
     justify-content: center;
-    background-image: url("./assets/images/Phone.png");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    height: 100vh;
   }
   .place-holder {
     /* padding: 0; */

@@ -138,6 +138,7 @@ const Login = () => {
 
   // google signin method
   const { setUser } = useUser();
+  // googleSigin function
   const googleSignin = async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -150,7 +151,6 @@ const Login = () => {
 
       // Extract OAuthCredential from the result
       const credential = GoogleAuthProvider.credentialFromResult(result);
-
       // Access token to interact with Google API
       const token = credential?.accessToken;
 
