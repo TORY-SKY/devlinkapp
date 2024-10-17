@@ -9,6 +9,7 @@ import ProfileDetails from "./components/ProfileDetails";
 import ForgotPassword from "./components/ForgotPassword";
 import LinkSaver from "./Test";
 import { UserProvider } from "./common/LoginContext";
+import Testing from "./Testing";
 
 function App() {
   const router = createBrowserRouter([
@@ -52,6 +53,11 @@ function App() {
     {
       path: "/test",
       element: <LinkSaver />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/testing",
+      element: <Testing />,
       errorElement: <ErrorPage />,
     },
   ]);

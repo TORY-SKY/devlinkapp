@@ -400,10 +400,15 @@ body {
   }
   .right-side {
     padding: 40px;
+    flex: 1;
+    position: relative;
+    float: right;
   }
   .add-link-container {
+    position: relative;
     display: grid;
     grid-template-columns: 40% 60%;
+    /* height: 100vh; */
   }
 
   .header-text {
@@ -423,17 +428,14 @@ body {
     padding: 70px;
   }
   .left-side {
-    position: relative;
+    /* position: fixed; */
     background-color: var(--white-color);
     margin-top: 24px;
     margin-right: 24px;
     margin-left: 24px;
-    /* padding: 126.5px; */
-    display: flex;
-    /* align-items: center; */
+    overflow-y: auto;
     border: 1px solid red;
     padding: 12px;
-    overflow-y: scroll;
     justify-content: center;
     background-position: center;
     background-size: contain;
@@ -442,7 +444,12 @@ body {
   }
   .place-holder {
     /* padding: 0; */
-    overflow-y: scroll;
+    position: fixed;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    float:;
   }
   .save-button-container {
     margin-top: 40px;
