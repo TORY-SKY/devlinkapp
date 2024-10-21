@@ -1,16 +1,19 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  auth,
+  googleProvider,
+  signInWithPopup,
+  signOut,
+  User,
+} from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { AuthContextType } from "./Interfaces";
 
-import {User} from "../common/Interfaces"
-interface UserContextType {
-  theUser: User | null;
-  setUser: (user: User | null) => void;
-}
-
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<AuthContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [theUser, setUser] = useState<User | null>(null);
+  const [theUser, setUser] = useState<"" | null>(null);
   return (
     <UserContext.Provider value={{ theUser, setUser }}>
       {children}

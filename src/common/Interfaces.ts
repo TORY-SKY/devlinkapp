@@ -1,3 +1,5 @@
+import { User } from "./firebase";
+
 // interface for individual link
 export type LinkData = {
   id: string;
@@ -18,20 +20,8 @@ export interface LinkContext {
 //login interface
 
 // types/User.ts
-export interface User {
-  accessToken: string | "";
-  displayName: string | "";
-  email: string | "";
-  emailVerified: boolean | "";
-  isAnonymous: boolean | "";
-  metadata: {
-    createdAt: string | "";
-    lastLoginAt: string | "";
-    lastSignInTime: string | "";
-    creationTime: string | "";
-  };
-  phoneNumber: string | null;
-  photoURL: string | "";
-  providerId: string | "";
-  uid: string | "";
+export interface AuthContextType {
+  user: User | null;
+  signInWithGoogle: () => Promise<void>;
+  signOutUser: () => Promise<void>;
 }

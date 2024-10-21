@@ -93,7 +93,9 @@ const Addlink = () => {
                   <UserDisplayName />
                 )}
               </div>
-
+              <div>
+                <h1>{theUser?.phoneNumber}</h1>
+              </div>
               <div>
                 {theUser?.email ? (
                   <p

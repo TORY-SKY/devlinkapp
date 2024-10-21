@@ -1,18 +1,9 @@
-import {
-  getAuth,
-  GoogleAuthProvider,
-  UserCredential,
-  User as FirebaseUser,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  AuthError,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, FocusEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignInput, SigninErrors } from "./Interface";
 import { toast, ToastContainer } from "react-toastify";
 import google from "../assets/images/google.svg";
-import { User } from "../common/Interfaces";
 import { useUser } from "../common/LoginContext";
 
 const Login = () => {
@@ -139,59 +130,8 @@ const Login = () => {
   // google signin method
   const { setUser } = useUser();
   // googleSigin function
-  const googleSignin = async () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-
-    try {
-      setLoading(true);
-
-      // signInWithPopup returns a promise that resolves to a UserCredential
-      const result: UserCredential = await signInWithPopup(auth, provider);
-
-      // Extract OAuthCredential from the result
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-
-      // Access token to interact with Google API
-      const token = credential?.accessToken;
-
-      // Retrieve the signed-in user's information
-      const firebaseUser: FirebaseUser = result.user;
-
-      const mappedUser: User = {
-        accessToken: token || "",
-        displayName: firebaseUser.displayName || "",
-        email: firebaseUser.email || "",
-        emailVerified: firebaseUser.emailVerified,
-        isAnonymous: firebaseUser.isAnonymous,
-        metadata: {
-          createdAt: firebaseUser.metadata.creationTime || "",
-          lastLoginAt: firebaseUser.metadata.lastSignInTime || "",
-          lastSignInTime: firebaseUser.metadata.lastSignInTime || "",
-          creationTime: firebaseUser.metadata.creationTime || "",
-        },
-        phoneNumber: firebaseUser.phoneNumber,
-        photoURL: firebaseUser.photoURL || "",
-        providerId: firebaseUser.providerData[0]?.providerId || "",
-        uid: firebaseUser.uid,
-      };
-      setUser(mappedUser);
-      toast.success("Google sign-in successful!");
-      navigate("/addlink");
-    } catch (error) {
-      const authError = error as AuthError;
-      // const errorCode = authError.code;
-      const errorMessage = authError.message;
-      const email = authError.customData?.email;
-      const credential = GoogleAuthProvider.credentialFromError(authError);
-      console.error("Error code:", error);
-      console.error("Error message:", errorMessage);
-      if (email) console.error("User email:", email);
-      if (credential) console.error("Credential:", credential);
-      handleError(error);
-    } finally {
-      setLoading(false);
-    }
+  const googleSignin = () => {
+    alert("login successful");
   };
 
   return (
