@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import {
   auth,
   googleProvider,
@@ -13,9 +19,34 @@ const UserContext = createContext<AuthContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [theUser, setUser] = useState<"" | null>(null);
+  const [theUser, setUser] = useState<User | null>(null);
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(result.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const signOutUser = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error("Sign-out error", error);
+    }
+  };
+
+  useEffect(() => {
+    // Subscribe to the Firebase authentication state changes
+    const unsubScribe = auth.onAuthStateChanged((firebaseUser) => {
+      // Update the local user state with the current authenticated user
+      setUser(firebaseUser);
+    });
+    return () => unsubScribe();
+  }, [theUser]);
   return (
-    <UserContext.Provider value={{ theUser, setUser }}>
+    <UserContext.Provider value={{ theUser, signInWithGoogle, signOutUser }}>
       {children}
     </UserContext.Provider>
   );

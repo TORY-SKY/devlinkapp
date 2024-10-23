@@ -128,11 +128,8 @@ const Login = () => {
   }, [UserInput.email, UserInput.password]);
 
   // google signin method
-  const { setUser } = useUser();
+  const { signInWithGoogle } = useUser();
   // googleSigin function
-  const googleSignin = () => {
-    alert("login successful");
-  };
 
   return (
     <div className="LOGIN-CONTAINER">
@@ -287,7 +284,7 @@ const Login = () => {
             <Link to="/signup">Create Account</Link>
           </div>
         </form>
-        <button onClick={googleSignin} className="google-singin-btn">
+        <button onClick={signInWithGoogle} className="google-singin-btn">
           <img
             src={google}
             alt="googleIcon"

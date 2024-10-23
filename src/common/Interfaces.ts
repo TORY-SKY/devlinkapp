@@ -21,7 +21,7 @@ export interface LinkContext {
 
 // types/User.ts
 export interface AuthContextType {
-  user: User | null;
+  theUser: User | null;
   signInWithGoogle: () => Promise<void>;
   signOutUser: () => Promise<void>;
 }
