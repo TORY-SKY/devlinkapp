@@ -10,6 +10,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import LinkSaver from "./Test";
 import { UserProvider } from "./common/LoginContext";
 import Testing from "./Testing";
+import AI from "./components/AI";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +59,11 @@ function App() {
     {
       path: "/testing",
       element: <Testing />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/ai",
+      element: <AI />,
       errorElement: <ErrorPage />,
     },
   ]);

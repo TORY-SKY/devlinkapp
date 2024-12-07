@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
-const API_KEY = "YOUR_API_KEY"; // Replace with your actual API key
+const API_KEY = "AIzaSyCfnIz5c9szZINl08t8DR1uror60tgftkM"; // Replace with your actual API key
 
 export const generateAIContent = async (userQuery: string): Promise<string> => {
   const payload = {
