@@ -10,8 +10,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import LinkSaver from "./Test";
 import { UserProvider } from "./common/LoginContext";
 import Testing from "./Testing";
-import AI from "./components/AI";
-import FocusableInput from "./Leetcode";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -62,11 +61,7 @@ function App() {
       element: <Testing />,
       errorElement: <ErrorPage />,
     },
-    {
-      path: "/ai",
-      element: <FocusableInput shouldFocus={true} />,
-      errorElement: <ErrorPage />,
-    },
+   
   ]);
   return (
     <>
