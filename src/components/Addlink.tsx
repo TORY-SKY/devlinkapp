@@ -57,6 +57,8 @@ const Addlink = () => {
     setLinks([{ platform: "", url: "", id: "" }]);
   };
   const { theUser } = useUser();
+
+  
   return (
     <>
       <div className="nav-bar">
