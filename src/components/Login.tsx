@@ -292,6 +292,7 @@ const Login = () => {
           />
           <p>Continue with google</p>
         </button>
+        <button onClick={() => navigate("/geminillm")}>Ask Gemini</button>
       </div>
     </div>
   );

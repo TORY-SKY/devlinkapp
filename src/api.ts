@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
-const API_KEY = "AIzaSyCfnIz5c9szZINl08t8DR1uror60tgftkM"; // Replace with your actual API key
+const GEM = import.meta.env.VITE_GEMINI_API_KEY; // Replace with your actual API key
 
 export const generateAIContent = async (userQuery: string): Promise<string> => {
   const payload = {
@@ -18,11 +18,14 @@ export const generateAIContent = async (userQuery: string): Promise<string> => {
   };
 
   try {
-    const response = await axios.post(`${API_URL}?key=${API_KEY}`, payload, {
+    const response = await axios.post(`${API_URL}?key=${GEM}`, payload, {
       headers: { "Content-Type": "application/json" },
     });
+    const theResponse = response.data;
     // Extract and return the AI's generated content
-    return response.data.generatedContent || "No response from the AI.";
+    return (
+      theResponse.candidates[0].content.parts[0].text || "no response bro, wtf"
+    );
   } catch (error) {
     console.error("Error fetching AI response:", error);
     throw new Error("Failed to fetch AI response.");
