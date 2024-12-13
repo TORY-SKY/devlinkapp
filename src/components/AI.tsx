@@ -13,17 +13,17 @@ const AI: React.FC = () => {
     setError("");
     setResponse("");
 
-    const formula = "\\[VC(t) = V \\cdot (1 - e^{-t/RC})\\]";
-    const matrix = `
-      \\[
-      \\begin{bmatrix}
-      a & b & c & d \\\\
-      e & f & g & h \\\\
-      i & j & k & l \\\\
-      m & n & o & p
-      \\end{bmatrix}
-      \\]
-    `;
+    // const formula = "\\[VC(t) = V \\cdot (1 - e^{-t/RC})\\]";
+    // const matrix = `
+    //   \\[
+    //   \\begin{bmatrix}
+    //   a & b & c & d \\\\
+    //   e & f & g & h \\\\
+    //   i & j & k & l \\\\
+    //   m & n & o & p
+    //   \\end{bmatrix}
+    //   \\]
+    // `;
 
     try {
       const aiResponse = await generateAIContent(query);
