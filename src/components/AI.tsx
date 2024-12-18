@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { generateAIContent } from "../api"; // Adjust the path based on your file structure
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 const AI: React.FC = () => {
@@ -68,7 +68,7 @@ const AI: React.FC = () => {
             <div>
               <h3>AI Response:</h3>
 
-              <p>{response}</p>
+              <p style={{ border: "1px solid grey" }}>{response}</p>
             </div>
           </MathJax>
         )}
