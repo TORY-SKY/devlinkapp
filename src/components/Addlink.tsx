@@ -14,6 +14,8 @@ import {
   UserDisplayName,
   UserSkeleton,
 } from "../common/Skeloton";
+import { motion } from "framer-motion";
+
 const Addlink = () => {
   const [links, setLinks] = useState<LinkData[]>([
     { platform: "", url: "", id: "" },
@@ -58,7 +60,6 @@ const Addlink = () => {
   };
   const { theUser } = useUser();
 
-  
   return (
     <>
       <div className="nav-bar">
@@ -124,9 +125,15 @@ const Addlink = () => {
               the world!
             </p>
           </div>
-          <button className="add-link-btn" onClick={handleAddLink}>
+          <motion.button
+            initial={{ x: "-100vw" }}
+            animate={{ y: 0, opacity: 1, x: 0 }}
+            transition={{ delay: 1.5, duration: 1.7 }}
+            className="add-link-btn"
+            onClick={handleAddLink}
+          >
             + Add new link
-          </button>
+          </motion.button>
           <div className="adding-links-struc">
             <div className="add-links-structure">
               <div className={`link-input-container`}>

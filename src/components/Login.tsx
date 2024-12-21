@@ -5,6 +5,8 @@ import { SignInput, SigninErrors } from "./Interface";
 import { toast, ToastContainer } from "react-toastify";
 import google from "../assets/images/google.svg";
 import { useUser } from "../common/LoginContext";
+import gemini from "../assets/images/google-gemini-512.png";
+import "../common/cssFile/ai.css";
 
 const Login = () => {
   // the navigate variable for navigation
@@ -292,7 +294,12 @@ const Login = () => {
           />
           <p>Continue with google</p>
         </button>
-        <button onClick={() => navigate("/geminillm")}>Ask Gemini</button>
+        <button
+          className="Gemini-button google-singin-btn"
+          onClick={() => navigate("/geminillm")}
+        >
+          Ask Gemini{" "}
+        </button>
       </div>
     </div>
   );

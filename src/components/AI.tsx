@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { generateAIContent } from "../api"; // Adjust the path based on your file structure
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import Logout from "../Logout";
 const AI: React.FC = () => {
   const [query, setQuery] = useState<string>(""); // User input
   const [response, setResponse] = useState<string>(""); // AI-generated response
@@ -24,6 +25,59 @@ const AI: React.FC = () => {
     //   \\end{bmatrix}
     //   \\]
     // `;
+
+    // leetcode
+    const students = [
+      { name: "DUROJAYE OPEYEMI", matricNo: "F2408113" },
+      { name: "IDOWU VICTOR", matricNo: "20190702030095" },
+      { name: "KEHINDE OLUWAFEMI", matricNo: "2020232040079" },
+      { name: "AJIBIKE MICHAEL", matricNo: "2020232040030" },
+      { name: "ADESHINA FEMI", matricNo: "2020232040048" },
+      { name: "ABIODUN AZEEZ", matricNo: "2020232040073" },
+      { name: "ADEDAMOLA OGUNJOBI", matricNo: "20200702030033" },
+      { name: "OLAPOJOYE GBENGA", matricNo: "2020232040032" },
+      { name: "OLUWATIMILEHIN DANIEL", matricNo: "2020232040036" },
+      { name: "ADESOLA MICHEAL", matricNo: "2020232040038" },
+      { name: "ABDULHAMMID ABDULQUADRI", matricNo: "20200702030158" },
+      { name: "OGBONNAYA JOSEPH", matricNo: "2020232040044" },
+      { name: "OLANIPEKUN ABIODUN", matricNo: "F2407385" },
+      { name: "AYODELE TEMITOPE", matricNo: "F2415399" },
+      { name: "OSENI OLAMILEKAN", matricNo: "F2403328" },
+      { name: "OLAJIDE AFEEZ", matricNo: "F2409579" },
+      { name: "OLAPADE MOSES", matricNo: "2024212050105" },
+      { name: "ADELERE MUIZ", matricNo: "2020232040116" },
+      { name: "AKINTOKUNBO TOMIWA", matricNo: "202023240045" },
+      { name: "JESUGBOHUNMI OLAMIDE", matricNo: "F2411625" },
+      { name: "ADESINA TIMOTHY", matricNo: "F2405158" },
+      { name: "GBADEBO ABIODUN", matricNo: "20200702030155" },
+      { name: "AMUSAT QUADRI ADEBARE", matricNo: "2020232040063" },
+      { name: "BAKARE OLUWASEGUN", matricNo: "20200702030079" },
+      { name: "BALOGUN ADEMOLA", matricNo: "20200702030077" },
+      { name: "OLATUNJI DAMILARE", matricNo: "2020232040060" },
+      { name: "OLADIMEJI OREOLUWA", matricNo: "2018702030183" },
+      { name: "OGUNJOBI ADEDAMOLA BABATUNDE", matricNo: null }, // No matric no provided
+      { name: "BELLO BASIT", matricNo: "20200702030056" },
+      // { name: "BELLO BASIT", matricNo: "20200702030056" },
+    ];
+
+    // Example of mapping through the data
+    const CheckRepeatedNames = () => {
+      students.forEach((student, index) => {
+        for (let i = 1; i <= students.length; i++) {
+          let check = students[i] === students[i];
+          if (check) {
+            console.log("there are duplicates");
+          } else {
+            console.log("there are no double inputs");
+          }
+        }
+        console.log();
+      });
+    };
+    // console.log(students);
+    // leetcode
+    CheckRepeatedNames();
+    // GEMINI API CALL
 
     try {
       const aiResponse = await generateAIContent(query);
@@ -74,6 +128,7 @@ const AI: React.FC = () => {
         )}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </MathJaxContext>
+      <Logout />
     </div>
   );
 };
