@@ -8,11 +8,13 @@ import {
 import { LinkData } from "./Interfaces";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Define the type for the image data
 interface LinkContext {
   linkss: LinkData[];
   addLink: (links: LinkData[]) => void;
+  unsubscribe: () => void;
 }
 
 // Define the type for the context
@@ -31,6 +33,8 @@ export const LinkProvider = ({
 
   // fetching saved links from the firestore
   // passing it to the context API
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     const fetchLinks = async () => {
       const querySnapshot = await getDocs(collection(db, "links"));
@@ -43,6 +47,14 @@ export const LinkProvider = ({
 
     fetchLinks();
   }, []);
+  const auth = getAuth();
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  });
   // Adding link to Firestore and update context state
   const addLink = async (linkss: LinkData[]) => {
     try {
@@ -68,7 +80,7 @@ export const LinkProvider = ({
   };
 
   return (
-    <LinkContext.Provider value={{ linkss, addLink }}>
+    <LinkContext.Provider value={{ linkss, addLink, unsubscribe }}>
       {children}
     </LinkContext.Provider>
   );
