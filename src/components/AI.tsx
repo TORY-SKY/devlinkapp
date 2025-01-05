@@ -48,6 +48,8 @@ const AI: React.FC = () => {
   //   a.name.localeCompare(b.name)
   // );
 
+
+
   const handleSubmit = async () => {
     setLoading(true);
     setError("");
