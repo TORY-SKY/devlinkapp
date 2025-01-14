@@ -20,10 +20,6 @@ const ProfileDetails = () => {
       myButton.current.focus();
     }
   }, []);
-  const qrFunc = (e)=>{
-    e.prevent.default;
-    const qrval = e.target.value
-  }
 
   return (
     <div>
@@ -31,7 +27,7 @@ const ProfileDetails = () => {
       <h1>Profile Details</h1>
       <div className="some-content">
         <QRCodeCanvas
-          value={linkss}
+          value={"victor"}
           size={256} // Size of the QR Code
           bgColor="#ffffff" // Background Color
           fgColor="#000000" // Foreground (QR) Color
@@ -39,10 +35,9 @@ const ProfileDetails = () => {
           includeMargin={true} // Includes white margin around QR
         />
       </div>
-<form >
-  <h1>CONVERT ANYTHING TO QR-CODE</h1>
-  <input id="qrinput" type="text" placeholder="enter value to be converted">
-</form >
+      <form>
+        <h1>CONVERT ANYTHING TO QR-CODE</h1>
+      </form>
       <button
         ref={myButton}
         onClick={
