@@ -27,8 +27,8 @@ const ProfileDetails = () => {
       <h1>Profile Details</h1>
       <div className="some-content">
         <QRCodeCanvas
-          value={linkss}
-          size={256} // Size of the QR Code
+          value={"Victor"}
+          size={256} // Size of the QR Code here
           bgColor="#ffffff" // Background Color
           fgColor="#000000" // Foreground (QR) Color
           level="H" // Error correction level (L, M, Q, H)
