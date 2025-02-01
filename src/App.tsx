@@ -11,6 +11,7 @@ import LinkSaver from "./Test";
 import { UserProvider } from "./common/LoginContext";
 import Testing from "./Testing";
 import AI from "./components/AI";
+import PdfTextExtractor from "./aiFeatures/PdfTextExtractor";
 
 function App() {
   const router = createBrowserRouter([
@@ -64,6 +65,11 @@ function App() {
     {
       path: "/geminillm",
       element: <AI />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/upload",
+      element: <PdfTextExtractor />,
       errorElement: <ErrorPage />,
     },
   ]);

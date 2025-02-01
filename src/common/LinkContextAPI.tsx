@@ -42,6 +42,8 @@ export const LinkProvider = ({
         id: link.id,
         ...link.data(),
       })) as LinkData[];
+  console.log(loading);
+
       setDevLinks(fetchedLinks);
     };
 

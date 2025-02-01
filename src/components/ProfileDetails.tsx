@@ -1,17 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useLinkContext } from "../common/LinkContextAPI";
 
 import Navbar from "./Navbar";
 import Logout from "../Logout";
 import { useEffect, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
-
 const ProfileDetails = () => {
   const navigate = useNavigate();
   function Navigate() {
     navigate("/addLink");
   }
-  const { linkss } = useLinkContext();
+  // const { linkss } = useLinkContext();
 
   const myButton = useRef<HTMLButtonElement>(null);
 
