@@ -15,6 +15,8 @@ interface LinkContext {
   linkss: LinkData[];
   addLink: (links: LinkData[]) => void;
   unsubscribe: () => void;
+  pdfQuery: string;
+  setPdfQuery: (query: string) => void;
 }
 
 // Define the type for the context
@@ -30,6 +32,7 @@ export const LinkProvider = ({
   children: ReactNode;
 }): JSX.Element => {
   const [linkss, setDevLinks] = useState<LinkData[]>([]);
+  const [pdfQuery, setPdfQuery] = useState<string>("");
 
   // fetching saved links from the firestore
   // passing it to the context API
@@ -42,7 +45,7 @@ export const LinkProvider = ({
         id: link.id,
         ...link.data(),
       })) as LinkData[];
-  console.log(loading);
+      console.log(loading);
 
       setDevLinks(fetchedLinks);
     };
@@ -82,7 +85,9 @@ export const LinkProvider = ({
   };
 
   return (
-    <LinkContext.Provider value={{ linkss, addLink, unsubscribe }}>
+    <LinkContext.Provider
+      value={{ linkss, addLink, unsubscribe, pdfQuery, setPdfQuery }}
+    >
       {children}
     </LinkContext.Provider>
   );

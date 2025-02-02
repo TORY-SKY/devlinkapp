@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { generateAIContent } from "../api"; // Adjust the path based on your file structure
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import Logout from "../Logout";
+import { useLinkContext } from "../common/LinkContextAPI";
+import PdfTextExtractor from "../aiFeatures/PdfTextExtractor";
 
 const AI: React.FC = () => {
   const [query, setQuery] = useState<string>(""); // User input
@@ -48,7 +50,7 @@ const AI: React.FC = () => {
   //   a.name.localeCompare(b.name)
   // );
 
-
+  const { pdfQuery } = useLinkContext();
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -56,7 +58,7 @@ const AI: React.FC = () => {
     setResponse("");
 
     try {
-      const aiResponse = await generateAIContent(query);
+      const aiResponse = await generateAIContent(query && pdfQuery);
       setResponse(aiResponse);
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -74,6 +76,7 @@ const AI: React.FC = () => {
     <div
       style={{ maxWidth: "600px", margin: "2rem auto", textAlign: "center" }}
     >
+      <PdfTextExtractor />
       <MathJaxContext>
         <h1>AI Question Answering</h1>
         <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>

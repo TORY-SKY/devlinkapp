@@ -69,7 +69,7 @@ function App() {
     },
     {
       path: "/upload",
-      element: <PdfTextExtractor />,
+      element: <PdfTextExtractor  />,
       errorElement: <ErrorPage />,
     },
   ]);
