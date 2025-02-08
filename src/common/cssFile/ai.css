@@ -8,3 +8,22 @@
   margin-top: 10px;
   text-align: center;
 }
+.Chat-bot-container {
+  margin: 12px;
+  /* position: relative; */
+}
+.form-area {
+  /* position: absolute; */
+  width: 100%;
+  bottom: 0;
+  border: 4px solid grey;
+  border-radius: 12px;
+}
+
+.form-area textarea {
+  width: 100%;
+  outline: none;
+  border: 1px solid red;
+}
+.form-area textarea:focus {
+}

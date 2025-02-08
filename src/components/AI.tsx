@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { generateAIContent } from "../api"; // Adjust the path based on your file structure
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import Logout from "../Logout";
-import { useLinkContext } from "../common/LinkContextAPI";
 import PdfTextExtractor from "../aiFeatures/PdfTextExtractor";
+import Navbar from "./Navbar";
 
 const AI: React.FC = () => {
   const [query, setQuery] = useState<string>(""); // User input
@@ -50,15 +49,13 @@ const AI: React.FC = () => {
   //   a.name.localeCompare(b.name)
   // );
 
-  const { pdfQuery } = useLinkContext();
-
   const handleSubmit = async () => {
     setLoading(true);
     setError("");
     setResponse("");
 
     try {
-      const aiResponse = await generateAIContent(query && pdfQuery);
+      const aiResponse = await generateAIContent(query);
       setResponse(aiResponse);
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -73,13 +70,25 @@ const AI: React.FC = () => {
     }
   };
   return (
-    <div
-      style={{ maxWidth: "600px", margin: "2rem auto", textAlign: "center" }}
-    >
+    <div className="Chat-bot-container">
+      <Navbar />
       <PdfTextExtractor />
       <MathJaxContext>
         <h1>AI Question Answering</h1>
-        <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>
+        {response && (
+          <MathJax>
+            <div>
+              <h3>AI Response:</h3>
+
+              <p style={{ border: "1px solid grey" }}>{response}</p>
+            </div>
+          </MathJax>
+        )}
+        <form
+          onSubmit={handleSubmit}
+          style={{ marginBottom: "1rem" }}
+          className="form-area"
+        >
           <textarea
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -102,18 +111,9 @@ const AI: React.FC = () => {
           </button>
         </form>
 
-        {response && (
-          <MathJax>
-            <div>
-              <h3>AI Response:</h3>
-
-              <p style={{ border: "1px solid grey" }}>{response}</p>
-            </div>
-          </MathJax>
-        )}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </MathJaxContext>
-      <Logout />
+      {/* <Logout /> */}
     </div>
   );
 };
