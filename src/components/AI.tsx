@@ -48,6 +48,7 @@ const AI: React.FC = () => {
   // const sortedStudents = [...students].sort((a, b) =>
   //   a.name.localeCompare(b.name)
   // );
+  
 
   const handleSubmit = async () => {
     setLoading(true);

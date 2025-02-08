@@ -24,6 +24,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user);
+      console.log("user logged in");
     } catch (error) {
       console.log(error);
     }

@@ -2,14 +2,20 @@ import { useNavigate } from "react-router-dom";
 
 import Navbar from "./Navbar";
 import Logout from "../Logout";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 const ProfileDetails = () => {
   const navigate = useNavigate();
+  const url = "https://mail.google.com/mail/u/0/#inbox";
   function Navigate() {
     navigate("/addLink");
   }
-  // const { linkss } = useLinkContext();
+  // handle inputed data to be encoded
+  const [inputvalue, setInputValue] = useState<string>("");
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    // setUrl(value);
+  };
 
   const myButton = useRef<HTMLButtonElement>(null);
 
@@ -25,12 +31,17 @@ const ProfileDetails = () => {
       <h1>Profile Details</h1>
       <div className="some-content">
         <QRCodeCanvas
-          value={"victor"}
+          value={inputvalue} // Value to encode
           size={256} // Size of the QR Code
           bgColor="#ffffff" // Background Color
           fgColor="#000000" // Foreground (QR) Color
           level="H" // Error correction level (L, M, Q, H)
           includeMargin={true} // Includes white margin around QR
+        />
+        <input
+          type="text"
+          placeholder="input to convert to qrcode"
+          onChange={handleInput}
         />
       </div>
       <form>
