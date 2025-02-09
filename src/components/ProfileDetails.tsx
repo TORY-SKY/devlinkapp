@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 const ProfileDetails = () => {
   const navigate = useNavigate();
-  const url = "https://mail.google.com/mail/u/0/#inbox";
   function Navigate() {
     navigate("/addLink");
   }
