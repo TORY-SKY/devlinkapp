@@ -15,16 +15,20 @@ import {
 
 import { AuthContextType } from "./Interfaces";
 
+
 const UserContext = createContext<AuthContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [theUser, setUser] = useState<User | null>(null);
+
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user);
       console.log("user logged in");
+
+
     } catch (error) {
       console.log(error);
     }

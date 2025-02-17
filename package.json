@@ -20,6 +20,7 @@
     "firebase": "^10.12.4",
     "firebase-tools": "^13.14.2",
     "framer-motion": "^11.15.0",
+    "lucide-react": "^0.475.0",
     "mathjax": "^3.2.2",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",

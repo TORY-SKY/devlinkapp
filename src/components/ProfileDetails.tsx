@@ -1,71 +1,62 @@
 import { useNavigate } from "react-router-dom";
-
 import Navbar from "./Navbar";
 import Logout from "../Logout";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
-const ProfileDetails = () => {
+import "../common/cssFile/QrCodeConverter.css"; // Import updated CSS
+
+const QrCodeConverter: React.FC = () => {
   const navigate = useNavigate();
-  function Navigate() {
-    navigate("/addLink");
-  }
-  // handle inputed data to be encoded
-  const [inputvalue, setInputValue] = useState<string>("");
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    // setUrl(value);
-  };
 
-  const myButton = useRef<HTMLButtonElement>(null);
+  // Handle user input to be encoded
+  const [inputValue, setInputValue] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
+  // Auto-focus input field on component mount
   useEffect(() => {
-    if (myButton.current) {
-      myButton.current.focus();
-    }
+    inputRef.current?.focus();
   }, []);
 
   return (
-    <div>
+    <div className="qr-container" >
       <Navbar />
-      <h1>Profile Details</h1>
-      <div className="some-content">
-        <QRCodeCanvas
-          value={inputvalue} // Value to encode
-          size={256} // Size of the QR Code
-          bgColor="#ffffff" // Background Color
-          fgColor="#000000" // Foreground (QR) Color
-          level="H" // Error correction level (L, M, Q, H)
-          includeMargin={true} // Includes white margin around QR
-        />
-        <input
-          type="text"
-          placeholder="input to convert to qrcode"
-          onChange={handleInput}
-        />
+
+      <div className="qr-box">
+        <h1 className="qr-title">QR Code Generator</h1>
+
+        <div className="qr-content">
+          <QRCodeCanvas
+            value={inputValue || " "}
+            size={256}
+            bgColor="#ffffff"
+            fgColor="#000000"
+            level="H"
+            includeMargin={true}
+            className="qr-code"
+          />
+
+          <input
+            type="text"
+            ref={inputRef}
+            className="qr-input"
+            placeholder="Enter text, URL, or data..."
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+        </div>
+
+        <button
+          ref={buttonRef}
+          onClick={() => navigate("/addLink")}
+          className="qr-home-button"
+        >
+          Go Back
+        </button>
       </div>
-      <form>
-        <h1>CONVERT ANYTHING TO QR-CODE</h1>
-      </form>
-      <button
-        ref={myButton}
-        onClick={
-          Navigate
-          // disp();
-        }
-        className="focused-btn"
-        style={{
-          padding: "12px",
-          backgroundColor: "none",
-          border: "1px solid grey",
-        }}
-      >
-        back home
-      </button>
+
       <Logout />
     </div>
   );
 };
-// onClick={() => handleSignout()}
-// onClick={handleSignout()}
 
-export default ProfileDetails;
+export default QrCodeConverter;

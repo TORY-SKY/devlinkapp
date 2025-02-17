@@ -87,6 +87,8 @@ const Login = () => {
       navigate("/addlink");
     } catch (error: any) {
       // handle errors (function)
+      toast.success("Login unsuccessful!");
+
       handleError(error);
     } finally {
       setLoading(false);
@@ -107,7 +109,7 @@ const Login = () => {
         break;
       case "auth/network-request-failed":
         newErrors.general = "Check your internet connection.";
-        navigate("/addlink");
+        // navigate("/addlink");
         break;
       default:
         toast.error("An unexpected error occurred");
@@ -132,6 +134,7 @@ const Login = () => {
   // google signin method
   const { signInWithGoogle } = useUser();
   // googleSigin function
+
 
   return (
     <div className="LOGIN-CONTAINER">
@@ -286,6 +289,7 @@ const Login = () => {
             <Link to="/signup">Create Account</Link>
           </div>
         </form>
+        {/* sign in with google button */}
         <button onClick={signInWithGoogle} className="google-singin-btn">
           <img
             src={google}

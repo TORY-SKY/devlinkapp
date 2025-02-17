@@ -3,6 +3,7 @@ import { generateAIContent } from "../api"; // Adjust the path based on your fil
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import PdfTextExtractor from "../aiFeatures/PdfTextExtractor";
 import Navbar from "./Navbar";
+import "../common/cssFile/AIchatbot.css"; // Updated CSS file
 
 const AI: React.FC = () => {
   const [query, setQuery] = useState<string>(""); // User input
@@ -10,47 +11,10 @@ const AI: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [error, setError] = useState<string>(""); // Error state
 
-  // const students: StudentData[] = [
-  //   { name: "DUROJAYE OPEYEMI", matricNo: "F2408113" },
-  //   { name: "IDOWU VICTOR", matricNo: "20190702030095" },
-  //   { name: "KEHINDE OLUWAFEMI", matricNo: "2020232040079" },
-  //   { name: "AJIBIKE MICHAEL", matricNo: "2020232040030" },
-  //   { name: "ADESHINA FEMI", matricNo: "2020232040048" },
-  //   { name: "ABIODUN AZEEZ", matricNo: "2020232040073" },
-  //   { name: "ADEDAMOLA OGUNJOBI", matricNo: "20200702030033" },
-  //   { name: "OLAPOJOYE GBENGA", matricNo: "2020232040032" },
-  //   { name: "OLUWATIMILEHIN DANIEL", matricNo: "2020232040036" },
-  //   { name: "ADESOLA MICHEAL", matricNo: "2020232040038" },
-  //   { name: "ABDULHAMMID ABDULQUADRI", matricNo: "20200702030158" },
-  //   { name: "OGBONNAYA JOSEPH", matricNo: "2020232040044" },
-  //   { name: "OLANIPEKUN ABIODUN", matricNo: "F2407385" },
-  //   { name: "AYODELE TEMITOPE", matricNo: "F2415399" },
-  //   { name: "OSENI OLAMILEKAN", matricNo: "F2403328" },
-  //   { name: "OLAJIDE AFEEZ", matricNo: "F2409579" },
-  //   { name: "OLAPADE MOSES", matricNo: "2024212050105" },
-  //   { name: "ADELERE MUIZ", matricNo: "2020232040116" },
-  //   { name: "AKINTOKUNBO TOMIWA", matricNo: "202023240045" },
-  //   { name: "JESUGBOHUNMI OLAMIDE", matricNo: "F2411625" },
-  //   { name: "ADESINA TIMOTHY", matricNo: "F2405158" },
-  //   { name: "GBADEBO ABIODUN", matricNo: "20200702030155" },
-  //   { name: "AMUSAT QUADRI ADEBARE", matricNo: "2020232040063" },
-  //   { name: "BAKARE OLUWASEGUN", matricNo: "20200702030079" },
-  //   { name: "BALOGUN ADEMOLA", matricNo: "20200702030077" },
-  //   { name: "OLATUNJI DAMILARE", matricNo: "2020232040060" },
-  //   { name: "OLADIMEJI OREOLUWA", matricNo: "2018702030183" },
-  //   { name: "OGUNJOBI ADEDAMOLA BABATUNDE", matricNo: null }, // No matric no provided
-  //   { name: "BELLO BASIT", matricNo: "20200702030056" },
-  //   // { name: "BELLO BASIT", matricNo: "20200702030056" },
-  // ];
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!query.trim()) return;
 
-  // Example of mapping through the data
-
-  // const sortedStudents = [...students].sort((a, b) =>
-  //   a.name.localeCompare(b.name)
-  // );
-  
-
-  const handleSubmit = async () => {
     setLoading(true);
     setError("");
     setResponse("");
@@ -64,57 +28,49 @@ const AI: React.FC = () => {
       setLoading(false);
     }
   };
-  const EnterKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key == "Enter" && !e.shiftKey) {
+
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
   };
+
   return (
-    <div className="Chat-bot-container">
+    <div className="ai-chat-container">
       <Navbar />
       <PdfTextExtractor />
+
       <MathJaxContext>
-        <h1>AI Question Answering</h1>
-        {response && (
-          <MathJax>
-            <div>
-              <h3>AI Response:</h3>
+        <div className="ai-chat-box">
+          <h1 className="ai-title">AI Question Answering</h1>
 
-              <p style={{ border: "1px solid grey" }}>{response}</p>
-            </div>
-          </MathJax>
-        )}
-        <form
-          onSubmit={handleSubmit}
-          style={{ marginBottom: "1rem" }}
-          className="form-area"
-        >
-          <textarea
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={EnterKey}
-            placeholder="Type your question here..."
-            rows={4}
-            style={{ width: "100%", padding: "0.5rem", fontSize: "1rem" }}
-          />
-          <button
-            type="submit"
-            style={{
-              marginTop: "0.5rem",
-              padding: "0.5rem 1rem",
-              fontSize: "1rem",
-              cursor: "pointer",
-            }}
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Submit"}
-          </button>
-        </form>
+          {response && (
+            <MathJax>
+              <div className="ai-chat-window">
+                <h3 className="ai-response-title">AI Response:</h3>
+                <p className="ai-response">{response}</p>
+              </div>
+            </MathJax>
+          )}
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+          <form onSubmit={handleSubmit} className="ai-input-area">
+            <textarea
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleEnterKey}
+              placeholder="Type your question here..."
+              rows={4}
+              className="ai-input"
+            />
+            <button type="submit" className="ai-send-button" disabled={loading}>
+              {loading ? "Processing..." : "Submit"}
+            </button>
+          </form>
+
+          {error && <p className="ai-error-message">{error}</p>}
+        </div>
       </MathJaxContext>
-      {/* <Logout /> */}
     </div>
   );
 };
